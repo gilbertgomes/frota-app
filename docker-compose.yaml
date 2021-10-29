@@ -1,0 +1,19 @@
+version: '3.5'
+
+services: 
+     frota-app:
+        build:
+            context: .
+            cache_from:
+                - node:14-buster-slim                 
+                - node_modules
+            target: production-stage
+        image: prd/frota-app:v1.0.0
+        ports:
+            - 8020:80  
+        container_name: frota-app
+        command: [ "nginx", "-g", "daemon off;" ]    
+networks:
+    default:
+        external: 
+            name: docker1-hom
