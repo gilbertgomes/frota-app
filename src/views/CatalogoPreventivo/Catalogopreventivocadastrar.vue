@@ -31,6 +31,19 @@
                             color="red"
                             class="smf-gradient"
                             dark
+                            @click.prevent="novocampo()"
+                        >
+                        <v-icon dark>mdi-cancel</v-icon>
+                        Novo
+                        </v-btn>
+                        <v-btn
+                            width="200"
+                            height="45"
+                            rounded
+                            large
+                            color="red"
+                            class="smf-gradient"
+                            dark
                             @click.prevent="fechaFomulario()"
                         >
                         <v-icon dark>mdi-cancel</v-icon>
@@ -102,7 +115,8 @@ export default {
               troca: '',
               trocaRules: [ v => !!v || 'Periodo de troca é obrigatório!'], 
               visualiza: false
-            }
+            },
+            habilitar: false
         }
     },
     methods: {
@@ -155,6 +169,12 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+             this.mpreventiva.id = ''
+             this.mpreventiva.catalogo = ''
+             this.mpreventiva.km = ''
+             this.mpreventiva.troca = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -164,6 +184,7 @@ export default {
             this.alert = true
             console.log(localStorage.visualiza)
         })
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -171,6 +192,7 @@ export default {
         });
     },
     created(){
+        this.novo()
     }
 }
 </script>

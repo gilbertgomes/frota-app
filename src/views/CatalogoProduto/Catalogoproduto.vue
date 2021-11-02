@@ -169,6 +169,13 @@ export default {
             localStorage.usu_atualiza = editedItem.usu_atualiza
             this.initialize()
         })
+        this.interval = setInterval(() => {
+        if (this.value === 100) {
+          return (this.value = 0)
+            }
+            this.initialize() 
+            this.value += 10  
+        }, 5000)   
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {

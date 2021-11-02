@@ -177,6 +177,13 @@ export default {
         },
     },
     mounted() { // gerencia o receber de dados de outro componente
+        this.interval = setInterval(() => {
+        if (this.value === 100) {
+          return (this.value = 0)
+            }
+            this.initialize() 
+            this.value += 10  
+        }, 5000)  
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },

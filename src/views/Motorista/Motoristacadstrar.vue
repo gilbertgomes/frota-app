@@ -245,6 +245,7 @@ export default {
                  console.log(response.data )
                  this.isLoading = false
                  this.msgsucesso()
+                 this.novo()
                 return true;
               } else {
                 return false;
@@ -307,6 +308,27 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+            this.motorista.motorista = ''
+            this.motorista.nascimento = ''
+            this.motorista.idade = ''
+            this.motorista.endereco = ''
+            this.motorista.bairro = ''
+            this.motorista.rg = ''
+            this.motorista.cpf = ''
+            this.motorista.cnh = ''
+            this.motorista.cnhcategoria = ''
+            this.motorista.cnhvalidade = ''
+            this.motorista.email = ''
+            this.motorista.telcel = ''
+            this.motorista.sexo = ''
+            this.motorista.estadocivil = ''
+            this.motorista.tiposangueneo = ''
+            this.motorista.obs = ''
+            this.motorista.contrato = ''
+            this.motorista.admissao = ''
+            this.motorista.foto = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -315,6 +337,7 @@ export default {
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)
+            this.novo()
         })
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
@@ -324,6 +347,7 @@ export default {
     },
     created(){
         this.carregaTipoCondutor()
+        this.novo()
     }
 }
 </script>

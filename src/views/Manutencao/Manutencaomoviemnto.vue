@@ -219,15 +219,22 @@ export default {
           this.os.id = item.os
           EventBus.$emit('carregamovimentoprint', this.os)
         },
-   
+        novo(){
+            this.os.dtcadastro = ''
+            this.os.dtaprovacao = ''
+            this.os.dtconclusao = ''
+        }   
+
     },
     mounted(){ // gerencia o receber de dados de outro componente
        this.exibeitens()
+       this.novo()
     },   
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
     },
     created(){
        this.exibeitens()
+       this.novo()
     }
 }
 </script>

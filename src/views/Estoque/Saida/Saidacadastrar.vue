@@ -132,6 +132,7 @@ export default {
                  console.log(response.data )
                  this.isLoading = false
                  this.msgsucesso()
+                 this.novo()
                 return true;
               } else {
                 return false;
@@ -188,6 +189,13 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+            this.saida.documento = ''
+            this.saida.valor = ''
+            this.saida.destino = ''
+            this.saida.situacao = ''
+            this.saida.obs = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -202,9 +210,11 @@ export default {
         this.$once("hook:beforeDestroy", () => {
             EventBus.$off('carregacadastro')
         });
+        this.novo()
     },
     created(){
         this.carregafornecedor()
+        this.novo()
     }
 }
 </script>

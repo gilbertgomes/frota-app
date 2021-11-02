@@ -243,6 +243,19 @@ export default {
         calculasoma(valor1, valor2){
           const total =  valor1 * valor2
           return total   
+        },
+        novo(){
+            this.ositem.tipoitem = ''
+            this.ositem.objeto = ''
+            this.ositem.quant = ''
+            this.ositem.valorun = ''
+            this.ositem.valortot = ''
+            this.ositem.inicio = ''
+            this.ositem.prazo = ''
+            this.ositem.garantia = ''
+            this.ositem.veiculo = ''
+            this.ositem.tipoprazo = ''
+            this.ositem.situacao = ''
         }
     },
     calculavalor(var1, var2){
@@ -257,6 +270,7 @@ export default {
             this.alert = true
             console.log(localStorage.visualiza)
         })
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -264,6 +278,7 @@ export default {
         });
     },
     created(){
+        this.novo()
     }
 }
 </script>

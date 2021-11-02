@@ -525,7 +525,23 @@ export default {
         calculasoma(valor1, valor2){
           const total =  valor1 * valor2
           return total   
-        }
+        },
+        novo(){
+            this.saidaitem.saida = ''
+            this.saidaitem.produto = ''
+            this.saidaitem.descricaoproduto = ''
+            this.saidaitem.documento = ''
+            this.saidaitem.un = ''
+            this.saidaitem.destino = ''
+            this.saidaitem.valorun = ''
+            this.saidaitem.valortot = ''
+            this.saidaitem.valorvenda = ''
+            this.saidaitem.obs = ''
+            this.saidaitem.unidade = ''
+            this.saidaitem.descunidade = ''
+            this.saidaitem.referencia = ''
+            this.saidaitem.descreferencia = ''
+        },   
     },
     mounted(){ // gerencia o receber de dados de outro componente
         EventBus.$on('carregaitem', (saida) => {
@@ -536,6 +552,7 @@ export default {
             this.alert = true
             console.log(localStorage.visualiza)
         })
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -546,6 +563,7 @@ export default {
         this.carregaProduto()
         this.carregaUnudade()
         this.carregaReferencia()
+        this.novo()
     }
 }
 </script>

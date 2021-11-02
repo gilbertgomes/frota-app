@@ -141,6 +141,9 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+            this.referencia.referencia = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -150,6 +153,7 @@ export default {
             this.alert = true
             console.log(localStorage.visualiza)
         })
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -157,6 +161,7 @@ export default {
         });
     },
     created(){
+        this.novo()
     }
 }
 </script>

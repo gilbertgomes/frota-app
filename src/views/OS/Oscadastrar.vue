@@ -211,6 +211,7 @@ export default {
                  console.log(response.data )
                  this.isLoading = false
                  this.msgsucesso()
+                 this.novo()
                 return true;
               } else {
                 return false;
@@ -382,6 +383,22 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+            this.os.solicitante = ''
+            this.os.tipoos = ''
+            this.os.fornecedor = ''
+            this.os.local = ''
+            this.os.aprovador = ''
+            this.os.obs = ''
+            this.os.situacao = ''
+            this.os.veiculoid = ''
+            this.os.veiculo = ''
+            this.os.cnhvalidade = ''
+            this.os.veiculo = ''
+            this.os.oc = ''
+            this.os.octipo = ''
+            this.os.ocano = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -391,6 +408,7 @@ export default {
             this.alert = true
             console.log(localStorage.visualiza)
         })
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -403,6 +421,7 @@ export default {
         this.carregafornecedor()
         this.carregalocalexecução()
         this.carregaaprovador()
+        this.novo()
     }
 }
 </script>

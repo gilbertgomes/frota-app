@@ -316,7 +316,25 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
-        }
+        },
+        novo(){
+            this.abastecimento.id = ''
+            this.abastecimento.veiculo = ''
+            this.abastecimento.data = ''
+            this.abastecimento.placa = ''
+            this.abastecimento.veiculomodelo = ''
+            this.abastecimento.kmatual = ''
+            this.abastecimento.marcador = ''
+            this.abastecimento.horaabast = ''
+            this.abastecimento.motorista = ''
+            this.abastecimento.quantidade = ''
+            this.abastecimento.valorun = ''
+            this.abastecimento.valortot = ''
+            this.abastecimento.fornecedor = ''
+            this.abastecimento.rcnumero = ''
+            this.abastecimento.situacao = ''          
+        },
+
     },
     mounted(){ // gerencia o receber de dados de outro componente
         EventBus.$on('carregacadastro', (abastecimento) => {
@@ -324,6 +342,7 @@ export default {
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)
+            this.novo()
         })
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
@@ -334,6 +353,7 @@ export default {
     created(){
         this.carregamotorista()
         this.carregafornecedor()
+        this.novo()
     }
 }
 </script>

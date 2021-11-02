@@ -142,6 +142,9 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+            this.fabricante.fabricante = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -156,8 +159,10 @@ export default {
         this.$once("hook:beforeDestroy", () => {
             EventBus.$off('carregacadastro')
         });
+        this.novo()
     },
     created(){
+        this.novo()
     }
 }
 </script>

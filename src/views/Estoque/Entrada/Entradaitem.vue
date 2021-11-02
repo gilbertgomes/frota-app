@@ -321,7 +321,7 @@ export default {
               produto: '',
               produtoRules: [ v => !!v || 'Produto é obrigatório!'],   
               descricaoproduto: '',
-              sescricaoprodutoRules: [ v => !!v || 'Produto é obrigatório!'],     
+              dsescricaoprodutoRules: [ v => !!v || 'Produto é obrigatório!'],     
               qde: '',
               qdeRules: [ v => !!v || 'Quantidade é obrigatório!'],    
               un: '',
@@ -557,6 +557,24 @@ export default {
         calculasoma(valor1, valor2){
           const total =  valor1 * valor2
           return total   
+        },
+        novo(){
+            this.entradaitem.entrada = ''
+            this.entradaitem.tipoproduto = ''
+            this.entradaitem.produto = ''
+            this.entradaitem.descricaoproduto = ''
+            this.entradaitem.qde = ''
+            this.entradaitem.un = ''
+            this.entradaitem.valorun = ''
+            this.entradaitem.valortot = ''
+            this.entradaitem.valorvenda = ''
+            this.entradaitem.minimo = ''
+            this.entradaitem.dtvecimento = ''
+            this.entradaitem.obs = ''
+            this.entradaitem.unidade = ''
+            this.entradaitem.descunidade = ''
+            this.entradaitem.referencia = ''
+            this.entradaitem.descreferencia = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
@@ -570,6 +588,7 @@ export default {
         })
         this.carregaTipoProduto()
         this.carregaProduto()
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -581,6 +600,7 @@ export default {
         this.carregaProduto()
         this.carregaUnudade()
         this.carregaReferencia()
+        this.novo()
     }
 }
 </script>

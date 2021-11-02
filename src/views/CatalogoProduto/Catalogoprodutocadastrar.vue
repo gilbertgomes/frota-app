@@ -34,6 +34,19 @@
                             color="red"
                             class="smf-gradient"
                             dark
+                            @click.prevent="novocampo()"
+                        >
+                        <v-icon dark>mdi-cancel</v-icon>
+                        Novo
+                        </v-btn>
+                        <v-btn
+                            width="200"
+                            height="45"
+                            rounded
+                            large
+                            color="red"
+                            class="smf-gradient"
+                            dark
                             @click.prevent="fechaFomulario()"
                         >
                         <v-icon dark>mdi-cancel</v-icon>
@@ -107,7 +120,8 @@ export default {
               obs: '',
               obsRules: [ v => !!v || 'Oba é obrigatório!'], 
               visualiza: false
-            }
+            },
+            habilita: false
         }
     },
     methods: {
@@ -127,6 +141,7 @@ export default {
                  console.log(response.data )
                  this.isLoading = false
                  this.msgsucesso()
+                 this.novo()
                 return true;
               } else {
                 return false;
@@ -162,13 +177,20 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
+        },
+        novo(){
+            this.produto.produto = ''
+            this.produto.un = ''
+            this.produto.ref = ''
+            this.produto.obs = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
         EventBus.$on('carregacadastro', (CatalogoProduto) => {
             localStorage.visualiza = CatalogoProduto.visualiza
+            localStorage.campo = ''        
             this.dialog = true
-            this.alert = true
+            this.alert = true     
             console.log(localStorage.visualiza)
         })
     },
@@ -178,6 +200,7 @@ export default {
         });
     },
     created(){
+        this.novo()
     }
 }
 </script>

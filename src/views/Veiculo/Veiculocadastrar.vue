@@ -260,6 +260,7 @@ export default {
                  console.log(response.data )
                  this.isLoading = false
                  this.msgsucesso()
+                 this.novo()
                 return true;
               } else {
                 return false;
@@ -347,7 +348,25 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
-        }
+        },
+        novo(){
+            this.veiculo.placa = ''
+            this.veiculo.veiculo = ''
+            this.veiculo.modelo = ''
+            this.veiculo.ano = ''
+            this.veiculo.chassis = ''
+            this.veiculo.kminicial = ''
+            this.veiculo.seguro = ''
+            this.veiculo.acessorio = ''
+            this.veiculo.licenciamento = ''
+            this.veiculo.finalplaca = ''
+            this.veiculo.origemveiculo = ''
+            this.veiculo.dut = ''
+            this.veiculo.crv = ''
+            this.veiculo.obs = ''
+            this.veiculo.fabricante = ''
+            this.veiculo.tipoveiculo = ''
+        }           
     },
     mounted(){ // gerencia o receber de dados de outro componente
         EventBus.$on('carregacadastro', (veiculo) => {
@@ -356,6 +375,7 @@ export default {
             this.alert = true
             console.log(localStorage.visualiza)
         })
+        this.novo()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -365,6 +385,7 @@ export default {
     created(){
         this.carregatipoveiculo()
         this.carregafabricante()
+        this.novo()
     }
 }
 </script>
