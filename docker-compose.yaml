@@ -10,7 +10,7 @@ services:
             target: production-stage
         image: prd/frota-app:v1.0.0
         ports:
-            - 8020:80  
+            - 9001:80  
         container_name: frota-app
         command: [ "nginx", "-g", "daemon off;" ]    
 networks:

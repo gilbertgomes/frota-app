@@ -34,19 +34,6 @@
                             color="red"
                             class="smf-gradient"
                             dark
-                            @click.prevent="novocampo()"
-                        >
-                        <v-icon dark>mdi-cancel</v-icon>
-                        Novo
-                        </v-btn>
-                        <v-btn
-                            width="200"
-                            height="45"
-                            rounded
-                            large
-                            color="red"
-                            class="smf-gradient"
-                            dark
                             @click.prevent="fechaFomulario()"
                         >
                         <v-icon dark>mdi-cancel</v-icon>
@@ -88,14 +75,14 @@
             </v-card-text>
         </v-card>
         </v-dialog>
-    </div>
+      </div>
 </template>
 <script type="text/javascript">
 // @ts-nocheck
 import EventBus from '@/main.js'
 export default {
     name: 'Cadastrar',
-    components: {        
+    components: {    
     },
     data() {
         return {

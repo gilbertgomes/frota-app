@@ -50,6 +50,12 @@
                   mdi-pencil
               </v-icon>
           </v-btn>
+          <v-btn class="smf-gradient" fab dark small color="red" v-bind="attrs" v-on="on">
+              <!-- opcao para carregar formulario modal e atulizar o GRID-->
+              <v-icon  @click="alteraritem(item)">
+                  mdi-car-outline
+              </v-icon>
+          </v-btn>
         </template>
       <span>Carrega dados {{nomeformulario}} selecionado para possivel alteração/projeto!</span>
       </v-tooltip>
