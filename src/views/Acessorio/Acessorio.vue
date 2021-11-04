@@ -50,12 +50,6 @@
                   mdi-pencil
               </v-icon>
           </v-btn>
-          <v-btn class="smf-gradient" fab dark small color="red" v-bind="attrs" v-on="on">
-              <!-- opcao para carregar formulario modal e atulizar o GRID-->
-              <v-icon  @click="insereacessorio(item)">
-                  mdi-car-outline
-              </v-icon>
-          </v-btn>
         </template>
       <span>Carrega dados {{nomeformulario}} selecionado para possivel alteração/projeto!</span>
       </v-tooltip>
@@ -69,7 +63,6 @@
   </div> 
   <Cadastrar></Cadastrar>
   <Alterar></Alterar>
-  <VeiculoAcessorio></VeiculoAcessorio>
  </v-card>
 </template>
 <script>
@@ -78,9 +71,8 @@ import EventBus from '@/main.js'
 export default {
     components: {   
         Dashboard: () => import('@/components/Dashboard/Dashboard.vue'),   
-        Cadastrar: () => import('@/views/Veiculo/Veiculocadastrar.vue'),
-        Alterar:   () => import('@/views/Veiculo/Veiculoalterar.vue'),
-        VeiculoAcessorio: () => import('@/views/Veiculo/Veiculoacessoriocadastrar.vue'),
+        Cadastrar: () => import('@/views/Acessorio/Acessoriocadastrar.vue'),
+        Alterar:   () => import('@/views/Acessorio/Acessorioalterar.vue'),
     },
     name: 'Fabricante',
     data() {
@@ -92,30 +84,18 @@ export default {
             visualiza: true,
             editedIndex: -1,
             headers: [{
-                    text: 'ID', 
-                    align: ' d-none', 
+                    text: 'ID',
+                    align: 'center', 
                     sortable: false,
                     value: 'id',
                     class: "cyan dark 1 white--text",  color: this.corForm 
                 },
                 { text: 'Data', value: 'data', class: "cyan dark 1 white--text" },
                 { text: 'Placa', value: 'placa', class: "cyan dark 1 white--text" },
-                { text: 'Veiculo', value: 'veiculo', class: "cyan dark 1 white--text" },
-                { text: 'Modelo', value: 'modelo', align: ' d-none',  class: "cyan dark 1 white--text" },
-                { text: 'Ano', align: ' d-none',  value: 'ano', class: "cyan dark 1 white--text" },
-                { text: 'Fabricante', value: 'fabricante', class: "cyan dark 1 white--text" },
-                { text: 'Tipo Veículo', align: ' d-none',  value: 'tipoveiculo', class: "cyan dark 1 white--text" },
-                { text: 'Origem', value: 'origemveiculo', class: "cyan dark 1 white--text" },
-                { text: 'Chassis', value: 'chassis', class: "cyan dark 1 white--text" },
-                { text: 'Km Inicial', value: 'kminicial', class: "cyan dark 1 white--text" },
-                { text: 'Seguro Veiculo', value: 'seguro', class: "cyan dark 1 white--text" },
-                { text: 'Acessórios', align: ' d-none',  value: 'acessorio', class: "cyan dark 1 white--text" },
-                { text: 'Tipo Combustivel', value: 'tipocombustivel', class: "cyan dark 1 white--text" },
-                { text: 'Licenciamento', value: 'lecenciamento', class: "cyan dark 1 white--text" },
-                { text: 'Final Placa', value: 'finalplaca', class: "cyan dark 1 white--text" },
-                { text: 'Obs', value: 'obs', align: ' d-none',  class: "cyan dark 1 white--text" },
-                { text: 'fabricanteid', align: ' d-none', value: 'fabricanteid', class: "cyan dark 1 white--text" },
-                { text: 'tipoveiculoid', align: ' d-none',  value: 'tipoveiculoid', class: "cyan dark 1 white--text" },
+                { text: 'veiculo', value: 'veiculo', class: "cyan dark 1 white--text" },
+                { text: 'Acessorio', value: 'acessorio', class: "cyan dark 1 white--text" },
+                { text: 'Obs', value: 'obs', class: "cyan dark 1 white--text" },
+                { text: 'veiculoid', value: 'veiculoid', align: ' d-none',  class: "cyan dark 1 white--text" },
                 { text: 'Ação', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
             ],
             gerenciarCampos: [],
@@ -129,25 +109,28 @@ export default {
               total: 0,
               total1: 0
             }, 
-            veiculo: {
+            acessorio: {
               id: 0,
               placa: '',
+              veiculo: '',
+              acessorio: '',
+              obs: '',
               visualiza: false
             },
-            nomeformulario: 'Veiculo'
+            nomeformulario: 'Acessorio'
         }
     },
     methods: {
         carregaForm() {
-            this.veiculo.visualiza = true
-            EventBus.$emit('carregacadastro', this.veiculo)
+            this.fabricante.visualiza = true
+            EventBus.$emit('carregacadastro', this.fabricante)
             this.initialize()
         },
         initialize() {
             const  key = 'frota2021house'
-            const  urldadosveiculo = process.env.VUE_APP_HOST + "veiculo/search/" + key
+            const  urldadosacessorio = process.env.VUE_APP_HOST + "acessorio/search/" + key
 
-            this.axios.get(urldadosveiculo)
+            this.axios.get(urldadosacessorio)
             .then(response => {           
     
               if (response == undefined) {
@@ -171,36 +154,17 @@ export default {
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
         alteraritem(item) {
-            this.veiculo.id = item.id
-            this.veiculo.placa = item.placa
-            this.veiculo.veiculo = item.veiculo
-            this.veiculo.modelo = item.modelo
-            this.veiculo.ano = item.ano
-            this.veiculo.chassis = item.chassis
-            this.veiculo.kminicial = item.kminicial
-            this.veiculo.acessorio = item.acessorio
-            this.veiculo.visualiza = true
-            EventBus.$emit('carregaalteracao', this.veiculo)
-            this.initialize()
-        },
-        insereacessorio(item) {
-            this.veiculo.id = item.id
-            this.veiculo.placa = item.placa
-            this.veiculo.veiculo = item.veiculo
-            this.veiculo.modelo = item.modelo
-            this.veiculo.visualiza = true
-            EventBus.$emit('carregaitem', this.veiculo)
+            this.acessorio.id = item.id
+            this.acessorio.placa = item.placa
+            this.acessorio.veiculo = item.veiculo
+            this.acessorio.acessorio = item.acessorio
+            this.acessorio.obs = item.obs
+            this.acessorio.visualiza = true
+            EventBus.$emit('carregaalteracao', this.acessorio)
             this.initialize()
         },
     },
     mounted() { // gerencia o receber de dados de outro componente
-        this.interval = setInterval(() => {
-        if (this.value === 100) {
-          return (this.value = 0)
-            }
-            this.initialize() 
-            this.value += 10  
-        }, 5000)  
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },

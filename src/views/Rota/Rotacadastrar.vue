@@ -15,58 +15,45 @@
                             </v-flex>  
                             <v-flex xs12 sm66 md6>
                                 <v-text-field  label="Veiculo" v-model="modeloveiculo" name="veiculo"  :value="modeloveiculo" @input="textToUpper('modeloveiculo')"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>  
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Nº RC" v-model="abastecimento.rcnumero" name="rcnumero"  :value="abastecimento.rcnumeroRules" @input="textToUpper('rcnumeroRules')"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Km no Abastecer" v-model="abastecimento.kmatual" :rules="abastecimento.kmatualRules" name="kmatual"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>   
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Marcador Combustivel" v-model="abastecimento.marcador" :rules="abastecimento.marcadorRules" name="marcador"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>  
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Hora Abastecimento" v-model="abastecimento.horaabast" v-mask="'##:##'" :rules="abastecimento.horaabastRules" name="kmatual"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>  
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Quantidade LT" v-model="abastecimento.quantidade" :rules="abastecimento.quantidadeRules" name="quantidade"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex> 
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Valor UN" v-model="abastecimento.valorun" :rules="abastecimento.valorunRules" name="valorun" @blur="calculavalorcombustivel()" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>
-                            <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Valor Total" v-model="abastecimento.valortot" :rules="abastecimento.valortotRules" name="valortot"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>    
                             <v-flex xs12 sm6 md6>
                                 <v-select
                                     :items="motorista"
                                     item-text="nome" 
                                     item-value="id"
-                                    label="Nome do Condutor"
+                                    label="Nome do Motorista"
                                     dense
                                     outlined
-                                    v-model="abastecimento.motorista"
-                                    value = 'Selecione o nome do condutor'
+                                    v-model="rota.motorista"
+                                    value = 'Selecione o Motorista da ROTA'
                                     clearable
                                 ></v-select>
-                            </v-flex>     
+                            </v-flex> 
                             <v-flex xs12 sm6 md6>
                                 <v-select
-                                    :items="fornecedor"
-                                    item-text="fornecedor" 
+                                    :items="cliente"
+                                    item-text="cliente" 
                                     item-value="id"
-                                    label="Nome do Fornecedor de combustivel"
+                                    label="Cliente Tomador"
                                     dense
                                     outlined
-                                    v-model="abastecimento.fornecedor"
-                                    value = 'Selecione o Fornecedor de combustivel'
+                                    v-model="rota.cliente"
+                                    value = 'Selecione o Cliente Tomador'
                                     clearable
                                 ></v-select>
+                            </v-flex> 
+                            <v-flex xs12 sm66 md6>
+                                <v-text-field  label="Rota ID/Referencia" v-model="rota.rotareferencia" :rules="rota.rotareferenciaRules" name="rotareferencia" :value="rota.rotareferencia" @input="textToUpper('rotareferencia')"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>  
                             <v-flex xs12 sm66 md6>
-                                <v-text-field  label="Obs da RC" v-model="abastecimento.obs" :rules="abastecimento.obsRules" name="obs"  :value="abastecimento.obs" @input="textToUpper('obs')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
-                            </v-flex>  
-
+                                <v-text-field  label="Hora inicio" v-model="rota.horainicio" name="horainicio"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>
+                            <v-flex xs12 sm66 md6>
+                                <v-text-field  label="KM inicio" v-model="rota.kminicio" name="kminicio"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>
+                            <v-flex xs12 sm66 md6>
+                                <v-text-field  label="Obs" v-model="rota.obs" :rules="rota.obsRules" name="obs" :value="rota.obs" @input="textToUpper('obs')"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>
                         </v-row>
                     </v-card-text>
                     <div class="text-center"> 
@@ -149,6 +136,8 @@ export default {
               motoristaRules: [ v => !!v || 'Motorista é obrigatório!'],
               veiculo: '',
               veiculoRules: [ v => !!v || 'Veiculo é obrigatório!'],
+              rotareferencia: '',
+              rotareferenciaRules: [ v => !!v || 'Rota ID/Referencia é obrigatório!'],
               kminicio: '',
               kminicioRules: [ v => !!v || 'KM Inicio é obrigatório!'],
               horainicio: '',
@@ -162,7 +151,7 @@ export default {
             nomeFormulario: 'Rotas',
             veiculo: [],
             motorista: [],
-            fornecedor: [],
+            cliente: [],
             modeloveiculo: '',
             placaveiculo: ''
 
@@ -204,12 +193,6 @@ export default {
             this.dialog1 = true
             this.alert1 = true
         },
-        textToUpper(id) {
-     
-            if(id == 'obs'){
-                this.rota.obs = this.rota.obs.toUpperCase()
-            }                
-        },
         carregaveiculo(placa){  
             this.isLoading = true; 
             const  urlfveiculo = process.env.VUE_APP_HOST + "veiculoplaca/search/" + placa.trim()
@@ -220,7 +203,7 @@ export default {
                 
                 if (respostaurl <= 201){// caso o response execute o post salvando os dados             
                     this.veiculo = response.data 
-                    this.abastecimento.veiculo = this.veiculo[0].id
+                    this.rota.veiculo = this.veiculo[0].id
                     this.modeloveiculo = this.veiculo[0].veiculo       
                     this.isLoading = false; 
 
@@ -258,16 +241,16 @@ export default {
                 this.erro = error.message;
             });        
         },
-        carregafornecedor(){  
+        carregacliente(){  
             this.isLoading = true; 
-            const  urlmotorista = process.env.VUE_APP_HOST + "fornecedor/search/" + '12r'
+            const  urlcliente = process.env.VUE_APP_HOST + "cliente/search/" + '12r'
 
-            this.axios.get(urlmotorista).then((response) => {
+            this.axios.get(urlcliente).then((response) => {
                 
                 let respostaurl = response.status
                 
                 if (respostaurl <= 201){// caso o response execute o post salvando os dados             
-                    this.fornecedor = response.data    
+                    this.cliente = response.data    
                     this.isLoading = false; 
 
                 } else {// caso o response retrone algum erro ao tentar salvar os dados 
@@ -281,16 +264,14 @@ export default {
                 this.erro = error.message;
             });        
         },
-        calculavalorcombustivel(){
-           const quantidade = this.abastecimento.quantidade.replace(",", ".") 
-           const valorun = this.abastecimento.valorun.replace(",", ".") 
-           const total = quantidade * valorun
-           if(total == ''){
-              return this.abastecimento.valortot = 0 
-           } else{
-            return this.abastecimento.valortot = total
-           }
-           
+        textToUpper(id) {
+            if(id == 'placaveiculo'){
+                this.placaveiculo = this.placaveiculo.toUpperCase()
+            } else if(id == 'modeloveiculo'){
+                this.modeloveiculo = this.modeloveiculo.toUpperCase()
+            } else if(id == 'obs'){
+                this.rota.obs = this.rota.obs.toUpperCase()
+            }                   
         },
         fechaFomulariomsg(){
             this.dialog  = false
@@ -300,8 +281,8 @@ export default {
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
-        EventBus.$on('carregacadastro', (abastecimento) => {
-            localStorage.visualiza = abastecimento.visualiza
+        EventBus.$on('carregacadastro', (rota) => {
+            localStorage.visualiza = rota.visualiza
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)
@@ -314,7 +295,7 @@ export default {
     },
     created(){
         this.carregamotorista()
-        this.carregafornecedor()
+        this.carregacliente()
     }
 }
 </script>

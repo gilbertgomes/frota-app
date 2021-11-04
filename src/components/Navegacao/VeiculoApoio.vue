@@ -55,12 +55,13 @@ export default {
             alterar: [],
             items: [
                 { bottom: '1', color: 'green', text: 'Veiculo', textitem: '.', icon: 'mdi-car-estate' },
-                { bottom: '2', color: 'green', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-clipboard-flow-outline' },
-                { bottom: '3', color: 'green', text: 'Manuteção', textitem: 'Veiculo', icon: 'mdi-wrench-outline' },
-                { bottom: '4', color: 'green', text: 'Motorista', textitem: '.', icon: 'mdi-card-account-mail-outline' }, 
-                { bottom: '5', color: 'green', text: 'Motorista', textitem: 'Historico', icon: 'mdi-account-details-outline' },
-                { bottom: '6', color: 'green', text: 'Abastecimento', textitem: 'Veiculo', icon: 'mdi-truck-check-outline' },  
-                { bottom: '7', color: 'green', text: 'Tacografo', textitem: 'Veiculo', icon: 'mdi-bus-articulated-front' },               
+                { bottom: '2', color: 'green', text: 'Acessório', textitem: 'Veículo', icon: 'mdi-bus-alert' },
+                { bottom: '3', color: 'green', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-clipboard-flow-outline' },
+                { bottom: '4', color: 'green', text: 'Manuteção', textitem: 'Veiculo', icon: 'mdi-wrench-outline' },
+                { bottom: '5', color: 'green', text: 'Motorista', textitem: '.', icon: 'mdi-card-account-mail-outline' }, 
+                { bottom: '6', color: 'green', text: 'Motorista', textitem: 'Historico', icon: 'mdi-account-details-outline' },
+                { bottom: '7', color: 'green', text: 'Abastecimento', textitem: 'Veiculo', icon: 'mdi-truck-check-outline' },  
+                { bottom: '8', color: 'green', text: 'Tacografo', textitem: 'Veiculo', icon: 'mdi-bus-articulated-front' },               
             ],
         }
     },
@@ -69,14 +70,16 @@ export default {
             if (botao == '1') {
                 this.$router.push("/veiculo");
             } else if (botao == '2') {
-                this.$router.push("/osserv")
+                this.$router.push("/acessorio")
             } else if (botao == '3') {
-                this.$router.push("/manutencao")
+                this.$router.push("/osserv")
             } else if (botao == '4') {
-                this.$router.push("/motorista")
+                this.$router.push("/manutencao")
             } else if (botao == '5') {
-                this.$router.push("/motoristahistorico")
+                this.$router.push("/motorista")
             } else if (botao == '6') {
+                this.$router.push("/motoristahistorico")
+            } else if (botao == '7') {
                 this.$router.push("/abastecimento")
             }
         },

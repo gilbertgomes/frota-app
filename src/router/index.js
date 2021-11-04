@@ -250,7 +250,12 @@ const routes = [
     component: () =>
         import ( /* webpackChunkName: "Dashboard" */ '@/views/Rota/Rota.vue')
   },
- 
+  {
+    path: '/acessorio',
+    name: 'Acessorio',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Acessorio/Acessorio.vue')
+  },
 ]
 
 const router = new VueRouter({

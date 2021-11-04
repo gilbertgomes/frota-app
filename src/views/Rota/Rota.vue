@@ -47,6 +47,14 @@
         {{ item.situacao }}
         </v-chip>
     </template>
+    <template v-slot:item.placa="{ item }">
+        <v-chip
+            :color="getColorplaca(item.placa)"
+            dark
+        >
+        {{ item.placa }}
+        </v-chip>
+    </template>
     <template v-slot:item.actions="{ item }">
       <v-tooltip left color="blue">
         <template v-slot:activator="{ on, attrs }">
@@ -93,10 +101,8 @@
     <v-pagination color="cyan" v-model="page" :length="pagination.total"  circle></v-pagination>
   </div> 
   <Cadastrar></Cadastrar>
-  <CadastarItem></CadastarItem>
   <Alterar></Alterar>
-  <Impressao></Impressao>
-  <listaitem></listaitem>  
+ 
 
   <v-dialog  v-model="dialog1" max-width="500px" persistent :retain-focus="false">
     <v-card>
@@ -126,9 +132,9 @@ export default {
         Dashboard:    () => import('@/components/Dashboard/Dashboard.vue'),   
         Cadastrar:    () => import('@/views/Rota/Rotacadastrar.vue'),
         Alterar:      () => import('@/views/Rota/Rotaalterar.vue'),
-        CadastarItem: () => import('@/views/Rota/Rotaitem.vue'), 
-        Impressao:    () => import('@/views/Rota/Rotaimpressao.vue'),  
-        listaitem:    () => import('@/views/Rota/Rotalist.vue'),     
+        //CadastarItem: () => import('@/views/Rota/Rotaitem.vue'), 
+        //Impressao:    () => import('@/views/Rota/Rotaimpressao.vue'),  
+        //listaitem:    () => import('@/views/Rota/Rotalist.vue'),     
     },
     name: 'Entrada',
     data() {
@@ -154,7 +160,8 @@ export default {
                 { text: 'Placa', value: 'placa', class: "cyan dark 1 white--text" },
                 { text: 'Veiculo', value: 'veiculo', class: "cyan dark 1 white--text" },
                 { text: 'Motorista', value: 'motorista', class: "cyan dark 1 white--text" },
-                { text: 'Cliente', value: 'cliente', class: "cyan dark 1 white--text" },                
+                { text: 'Cliente', value: 'cliente', class: "cyan dark 1 white--text" },       
+                { text: 'Situação', value: 'situacao', class: "cyan dark 1 white--text" },            
                 { text: 'motoristaid', value: 'motoristaid', align: ' d-none',  class: "cyan dark 1 white--text" },
                 { text: 'veiculoid', value: 'veiculoid', align: ' d-none',  class: "cyan dark 1 white--text" },
                 { text: 'Ação', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
@@ -175,14 +182,6 @@ export default {
             }, 
             rota: {
               id: 0,
-              cliente: '',
-              motorista: '',
-              veiculo: '',
-              kminicio: '', 
-              horainicio: '',
-              marcador: '',
-              obs: '',
-              situacao: '',
               visualiza: false
             },
             dialog: false,
@@ -231,10 +230,14 @@ export default {
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
         getColor (situacao) {
-            if (situacao == 'Adamento') return 'red'
-            else if (situacao == 'Concluido') return 'primary'
+            if (situacao == 'Pendente') return 'red'
+            else if (situacao == 'Andamento') return 'teal'
+            else if (situacao == 'Quitada') return 'primary'
             else if (situacao == 'Cancelada') return 'orange'
             else return 'green'           
+        },
+        getColorplaca(placa) {
+            if (placa == 'placa') return 'red'
         },
         linstaitens(item, acao){
           if(acao == 1){

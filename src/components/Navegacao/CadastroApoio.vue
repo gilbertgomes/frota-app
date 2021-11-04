@@ -64,7 +64,7 @@ export default {
                 { bottom: '8', color: 'deep black', text: 'Situação',  textitem: 'Status',  icon: 'mdi-check-outline' },   
                 { bottom: '9', color: 'brown', text: 'Situação',  textitem: 'Motorista',  icon: 'mdi-account-question-outline' },    
                 { bottom: '10', color: 'lime', text: 'Tipo',  textitem: 'Produto',  icon: 'mdi-cart' },  
-                { bottom: '11', color: 'teal', text: 'Tipo',  textitem: 'Motorista',  icon: 'mdi-cart' },     
+                { bottom: '11', color: 'teal', text: 'Tipo',  textitem: 'Motorista',  icon: 'mdi-camera-front-variant' },     
                 { bottom: '12', color: 'orange', text: 'Tipo',  textitem: 'DespRec',  icon: 'mdi-chart-bar' },    
                 { bottom: '13', color: 'indigo', text: 'Tipo',  textitem: 'Financeiro',  icon: 'mdi-book-open-page-variant' }, 
                 { bottom: '14', color: 'red', text: 'Tipo',  textitem: 'Manutenção',  icon: 'mdi-wrench-outline' },  
