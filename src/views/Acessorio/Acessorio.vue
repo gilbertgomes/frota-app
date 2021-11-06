@@ -22,21 +22,6 @@
           <span>Pesquisa {{nomeformulario}}!</span>
         </v-tooltip>
       </v-toolbar>
-     
-      <template>
-        <v-tooltip right color="#00A4AC">
-          <template v-slot:activator="{ on, attrs }">
-            <!--opção de chamar o formulario de detalhe dos dados da linha selecionada -->
-            <v-btn  @click="carregaForm()" class="mx-2" color="red" dark  fab fixed left  v-bind="attrs" v-on="on">
-                <!-- opcao para carregar formulario modal e atulizar o GRID-->
-                <v-icon >
-                    mdi-plus-thick
-                </v-icon>
-            </v-btn>
-          </template>
-        <span>Carrega novo cadastro para {{nomeformulario}}  !</span>
-        </v-tooltip>
-      </template>
       <v-spacer></v-spacer> 
     </template>
 

@@ -47,9 +47,17 @@
         {{ item.situacao }}
         </v-chip>
     </template>
+    <template v-slot:item.rotareferencia="{ item }">
+        <v-chip
+            color="indigo"
+            dark
+        >
+        {{ item.rotareferencia }}
+        </v-chip>
+    </template>
     <template v-slot:item.placa="{ item }">
         <v-chip
-            :color="getColorplaca(item.placa)"
+            color="red"
             dark
         >
         {{ item.placa }}
@@ -67,20 +75,20 @@
           </v-btn>
           <v-btn class="smf-gradient" fab dark small color="#790e8b" v-bind="attrs" v-on="on">
               <!-- opcao para carregar formulario modal e atulizar o GRID-->
-              <v-icon  @click="imprimientrada(item)">
+              <v-icon  @click="carregaimpressao(item)">
                   mdi-printer
               </v-icon>
           </v-btn>
           <v-btn class="smf-gradient" fab dark small color="red" v-bind="attrs" v-on="on">
               <!-- opcao para carregar formulario modal e atulizar o GRID-->
-              <v-icon  @click="exibelista(item)">
-                  mdi-collapse-all-outline
+              <v-icon  @click="carregaexclusao(item)">
+                  mdi-bus-clock
               </v-icon>
           </v-btn>   
-          <v-btn class="smf-gradient" fab dark small color="#ffc107" v-bind="attrs" v-on="on">
+          <v-btn class="smf-gradient" fab dark small color="teal" v-bind="attrs" v-on="on">
               <!-- opcao para carregar formulario modal e atulizar o GRID-->
               <v-icon  @click="insereitem(item)">
-                  mdi-text-box-plus-outline
+                 mdi-car-traction-control
               </v-icon>
           </v-btn>       
           <v-btn v-show="false" class="smf-gradient" fab dark small color="#ffc107" v-bind="attrs" v-on="on">
@@ -102,6 +110,9 @@
   </div> 
   <Cadastrar></Cadastrar>
   <Alterar></Alterar>
+  <CadastarItem></CadastarItem>
+  <listaitem></listaitem>
+  <Impressao></Impressao>
  
 
   <v-dialog  v-model="dialog1" max-width="500px" persistent :retain-focus="false">
@@ -132,9 +143,9 @@ export default {
         Dashboard:    () => import('@/components/Dashboard/Dashboard.vue'),   
         Cadastrar:    () => import('@/views/Rota/Rotacadastrar.vue'),
         Alterar:      () => import('@/views/Rota/Rotaalterar.vue'),
-        //CadastarItem: () => import('@/views/Rota/Rotaitem.vue'), 
-        //Impressao:    () => import('@/views/Rota/Rotaimpressao.vue'),  
-        //listaitem:    () => import('@/views/Rota/Rotalist.vue'),     
+        CadastarItem: () => import('@/views/Rota/Rotaitem.vue'), 
+        Impressao:    () => import('@/views/Rota/Rotaimpressao.vue'),  
+        Listaitem:    () => import('@/views/Rota/Rotalistaitem.vue'),     
     },
     name: 'Entrada',
     data() {
@@ -182,6 +193,10 @@ export default {
             }, 
             rota: {
               id: 0,
+              placa: '',
+              veiculo: '',
+              kminicio: 0,
+              motorista: '',              
               visualiza: false
             },
             dialog: false,
@@ -239,68 +254,33 @@ export default {
         getColorplaca(placa) {
             if (placa == 'placa') return 'red'
         },
-        linstaitens(item, acao){
-          if(acao == 1){
-            this.exibeitens(item)
-            this.gerenciaritem = this.exibiitem 
-          } else if(acao == 2){
-            this.atualizaitens(item)
-            this.gerenciaritem = this.atulizaitem 
-          }
-        },
         alteraritem(item) {
             this.rota.id = item.id
             localStorage.rota = item.id         
-            this.rota.documento = item.documento
-            this.rota.valortot = item.valortot
+            this.rota.placa = item.placa
+            this.rota.veiculo = item.veiculo
+            this.rota.motorista = item.motorista
             this.rota.obs = item.obs
-            this.rota.situacao = item.situacao
-            this.rota.forid = item.forid
-            this.rota.visualiza = true
-            localStorage.entrada = item.id
-            EventBus.$emit('carregaalteracao', this.entrada)
+            EventBus.$emit('carregaalteracao', this.rota)
             this.initialize()
         },
         insereitem(item) {
             this.rota.id = item.id
+            this.rota.kminicio = item.kminicio
             localStorage.rota = item.id
-            this.entrada.documento = item.documento
-            this.entrada.valortot = item.valortot
-            this.entrada.obs = item.obs
-            this.entrada.situacao = item.situacao
-            this.entrada.forid = item.forid
-            this.entrada.visualiza = true
-            EventBus.$emit('carregaitem', this.entrada)
-            this.initialize()
+            this.rota.visualiza = true  
+            EventBus.$emit('carregaitem', this.rota)
         },
-        confirmaExclusao(item){
-          this.Entradaitem.id = item.id
-          this.Entradaitem.entrada = item.entrada
-          this.Entradaitem.produto = item.produtoid
-          this.Entradaitem.unidade = item.unidadeid
-          this.Entradaitem.referencia = item.referenciaid
-          this.Entradaitem.qde = item.quant
-          this.Entradaitem.qdeminima = item.quantminimo
-          this.Entradaitem.entrada = item.entrada
-          localStorage.entrada = item.entrada
-          this.dialog = true
-          this.alert = true
-          console.log(this.Entradaitem)
+        carregaexclusao(item){
+            this.rota.id = item.id
+            this.rota.visualiza = true  
+            EventBus.$emit('carregaexclusao', this.rota)
         },
-        imprimientrada(item){
-          this.entrada.id = item.id
-          EventBus.$emit('carregaimpressao', this.entrada)
-        },
-        exibelista(item) {
-            this.entrada.id = item.id
-            localStorage.entrada = item.id
-            this.entrada.documento = item.documento
-            this.entrada.valortot = item.valortot
-            this.entrada.obs = item.obs
-            this.entrada.situacao = item.situacao
-            this.entrada.visualiza = true            
-            EventBus.$emit('carregalista', this.entrada)
-        },
+        carregaimpressao(item){
+            this.rota.id = item.id
+            this.rota.visualiza = true  
+            EventBus.$emit('carregaimpressao', this.rota)
+        }
     },
     mounted() { // gerencia o receber de dados de outro componente
     },

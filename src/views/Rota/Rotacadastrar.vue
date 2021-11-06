@@ -42,16 +42,16 @@
                                     clearable
                                 ></v-select>
                             </v-flex> 
-                            <v-flex xs12 sm66 md6>
+                            <v-flex xs12 sm6 md6>
                                 <v-text-field  label="Rota ID/Referencia" v-model="rota.rotareferencia" :rules="rota.rotareferenciaRules" name="rotareferencia" :value="rota.rotareferencia" @input="textToUpper('rotareferencia')"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>  
-                            <v-flex xs12 sm66 md6>
+                            <v-flex xs12 sm6 md6>
                                 <v-text-field  label="Hora inicio" v-model="rota.horainicio" name="horainicio"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>
-                            <v-flex xs12 sm66 md6>
+                            <v-flex xs12 sm6 md6>
                                 <v-text-field  label="KM inicio" v-model="rota.kminicio" name="kminicio"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>
-                            <v-flex xs12 sm66 md6>
+                            <v-flex xs12 sm6 md6>
                                 <v-text-field  label="Obs" v-model="rota.obs" :rules="rota.obsRules" name="obs" :value="rota.obs" @input="textToUpper('obs')"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>
                         </v-row>
@@ -193,18 +193,16 @@ export default {
             this.dialog1 = true
             this.alert1 = true
         },
-        carregaveiculo(placa){  
+        carregaveiculo(){  
             this.isLoading = true; 
-            const  urlfveiculo = process.env.VUE_APP_HOST + "veiculoplaca/search/" + placa.trim()
+            const  urlfveiculo = process.env.VUE_APP_HOST + "veiculo/search/" + 1
 
             this.axios.get(urlfveiculo).then((response) => {
                 
                 let respostaurl = response.status
                 
                 if (respostaurl <= 201){// caso o response execute o post salvando os dados             
-                    this.veiculo = response.data 
-                    this.rota.veiculo = this.veiculo[0].id
-                    this.modeloveiculo = this.veiculo[0].veiculo       
+                    this.veiculo = response.data     
                     this.isLoading = false; 
 
                 } else {// caso o response retrone algum erro ao tentar salvar os dados 
@@ -228,29 +226,6 @@ export default {
                 
                 if (respostaurl <= 201){// caso o response execute o post salvando os dados             
                     this.motorista = response.data 
-                    this.isLoading = false; 
-
-                } else {// caso o response retrone algum erro ao tentar salvar os dados 
-                    this.alert = true
-                    this.menssagemform = 'Ocorreu algum erro nos dados deste Pedido, verifique com o adm do sistema!'            
-                    this.mostraMenssagem(); // fecha o formulario de dados detalhado
-                }
-                this.isLoading = false;  
-            }).catch((error) => {
-                this.isLoading = false;
-                this.erro = error.message;
-            });        
-        },
-        carregacliente(){  
-            this.isLoading = true; 
-            const  urlcliente = process.env.VUE_APP_HOST + "cliente/search/" + '12r'
-
-            this.axios.get(urlcliente).then((response) => {
-                
-                let respostaurl = response.status
-                
-                if (respostaurl <= 201){// caso o response execute o post salvando os dados             
-                    this.cliente = response.data    
                     this.isLoading = false; 
 
                 } else {// caso o response retrone algum erro ao tentar salvar os dados 
@@ -295,7 +270,7 @@ export default {
     },
     created(){
         this.carregamotorista()
-        this.carregacliente()
+        this.carregaveiculo()
     }
 }
 </script>

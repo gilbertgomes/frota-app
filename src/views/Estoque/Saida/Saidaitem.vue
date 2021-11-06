@@ -556,7 +556,7 @@ export default {
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
-            EventBus.$off('carregacadastro')
+            EventBus.$off('carregaitem')
         });
     },
     created(){
