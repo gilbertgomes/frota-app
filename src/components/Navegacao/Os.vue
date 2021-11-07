@@ -74,7 +74,7 @@ export default {
             } else if (botao == '4') {
                 this.$router.push("/osserv")
             } else if (botao == '5') {
-                this.$router.push("/funerariaveiculo")
+                this.$router.push("/oc")
             } 
         },
         alterarItem() { //

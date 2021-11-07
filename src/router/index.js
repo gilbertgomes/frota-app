@@ -280,6 +280,12 @@ const routes = [
     component: () =>
         import ( /* webpackChunkName: "Dashboard" */ '@/views/Solicitante/Solicitante.vue')
   },
+  {
+    path: '/oc',
+    name: 'Oc',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/OC/Oc.vue')
+  },
 ]
 
 const router = new VueRouter({
