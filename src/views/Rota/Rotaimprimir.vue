@@ -1,36 +1,56 @@
 <template>
-  <div id="impressao">
-      <v-dialog  v-model="dialog" height="900px" max-width="900px" persistent :retain-focus="false">
-        <v-card height="650px" width="900px">
+    <div>
+        <template>
+            <v-tooltip left color="#8e0000">
+                <template v-slot:activator="{ on, attrs }">
+                    <!--opção de chamar o formulario de detalhe dos dados da linha selecionada -->
+                    <v-btn  small @click="retornar()" class="mx-2" color="red" dark  fab fixed left  v-bind="attrs" v-on="on">
+                        <!-- opcao para carregar formulario modal e atulizar o GRID-->
+                        <v-icon >
+                            mdi-keyboard-return
+                        </v-icon>
+                    </v-btn>
+                    <br>
+                    <v-btn  small @click="imprimir()" class="mx-2" color="red" dark  fab fixed left  v-bind="attrs" v-on="on">
+                        <!-- opcao para carregar formulario modal e atulizar o GRID-->
+                        <v-icon >
+                            mdi-printer
+                        </v-icon>
+                    </v-btn>
+                </template>
+            </v-tooltip>
+        </template>
+        <v-container>
+        <v-card height="650px"  elevation="0">
           <br>
           <v-card-text>                     
             <v-row>   
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Data" v-model="rotaitem.data" name="data" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Data" v-model="rotaitem.data" name="data"  placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex>  
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Hora Inicio" v-model="rotaitem.horainicio" name="horainicio"    clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Hora Inicio" v-model="rotaitem.horainicio" name="horainicio"   placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex> 
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Rota Ref" v-model="rotaitem.rotareferencia"  name="rotareferencia"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Rota Ref" v-model="rotaitem.rotareferencia"  name="rotareferencia"   placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex> 
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Hora Fim" v-model="rotaitem.horafim"  name="horafim" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Hora Fim" v-model="rotaitem.horafim"  name="horafim"  placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex>  
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Contrato" v-model="rotaitem.contrato"  name="contrato" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Contrato" v-model="rotaitem.contrato"  name="contrato"  placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex> 
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Cliente" v-model="rotaitem.cliente"  name="cliente" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Cliente" v-model="rotaitem.cliente"  name="cliente"  placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex>    
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Placa" v-model="rotaitem.placa" name="placa"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Placa" v-model="rotaitem.placa" name="placa"   placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex>  
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Veículo" v-model="rotaitem.veiculo" name="veiculo"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Veículo" v-model="rotaitem.veiculo" name="veiculo"   placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex> 
                 <v-flex xs12 sm6 md6>
-                    <v-text-field  label="Motorista" v-model="rotaitem.motorista" name="motorista"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                    <v-text-field  label="Motorista" v-model="rotaitem.motorista" name="motorista"   placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                 </v-flex> 
                 <v-flex xs12 sm6 md6>
                     <v-text-field  label="Obs" v-model="rotaitem.obs" name="obs"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
@@ -45,20 +65,9 @@
             hide-default-footer
           ></v-data-table>
           <br>
-          <div class="text-center">
-              <v-spacer></v-spacer>
-              <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fechaFomulariomsg()" >
-                  <v-icon dark>mdi-close-outline</v-icon>
-                  Fechar
-              </v-btn>   
-              <v-btn width="160" rounded  color="red"  class="smf-gradient" dark @click="imprimir()" >
-                  <v-icon dark>mdi-printer</v-icon>
-                  Imprimir
-              </v-btn>   
-          </div>
         </v-card>
-      </v-dialog>
-  </div>
+        </v-container>
+    </div>
 </template>
 <script type="text/javascript">
 // @ts-nocheck
@@ -156,25 +165,25 @@ export default {
         fechaFomulariomsg(){
           this.dialog = false
         },
-        imprimir(){  
-            window.print();
+        imprimir(){    
+            window.print()
+            this.retornar()
         },
+        retornar(){
+            this.$router.push("/rota");
+        }
         
     },
     mounted(){ // gerencia o receber de dados de outro componente
-        EventBus.$on('carregaimpressao', (rota) => {
-            localStorage.rota = rota.id
-            this.gerapdf(localStorage.rota)    
-            this.dialog = true
-        })
+        this.gerapdf(this.$route.params.id)
     },   
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
             EventBus.$off('carregaimpressao')
         });
     },
-    created(){
-      this.gerapdf(localStorage.entradaid )
+    created(){      
+        this.gerapdf(this.$route.params.id)      
     }
 }
 </script>

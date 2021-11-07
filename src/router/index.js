@@ -256,6 +256,30 @@ const routes = [
     component: () =>
         import ( /* webpackChunkName: "Dashboard" */ '@/views/Acessorio/Acessorio.vue')
   },
+  {
+    path: '/rotaimpressao/:id',
+    name: 'Rotaimpressao',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Rota/Rotaimprimir.vue')
+  },
+  {
+    path: '/aprovador',
+    name: 'Aprovador',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Aprovador/Aprovador.vue')
+  },
+  {
+    path: '/tipoos',
+    name: 'Tipoos',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/TipoOs/Tipoos.vue')
+  },
+  {
+    path: '/solicitante',
+    name: 'Solicitante',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Solicitante/Solicitante.vue')
+  },
 ]
 
 const router = new VueRouter({

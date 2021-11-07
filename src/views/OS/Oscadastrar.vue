@@ -25,6 +25,19 @@
                             </v-flex>
                             <v-flex xs12 sm6 md6>
                                 <v-select
+                                    :items="tipomanut"
+                                    item-text="tipomanutencao" 
+                                    item-value="id"
+                                    label="Tipo Manutenção"
+                                    dense
+                                    outlined
+                                    v-model="os.tipomanutencao"
+                                    value = 'Selecione o tipo de manutenção'
+                                    clearable
+                                ></v-select>
+                            </v-flex>
+                            <v-flex xs12 sm12 md12>
+                                <v-select
                                     :items="solicitante"
                                     item-text="solicitante" 
                                     item-value="id"
@@ -173,7 +186,8 @@ export default {
               obsRules: [ v => !!v || 'Obs é obrigatório!'], 
               situacao: '', 
               veiculoid: 0,
-              veiculo: '',          
+              veiculo: '',    
+              tipomanutencao: 0,      
               oc: 0,      
               octipo: '', 
               ocano: 2021,
@@ -190,7 +204,9 @@ export default {
             fornecedor: [],
             local: [],
             aprovador: [],
-            gerenciarveiculo: []
+            gerenciarveiculo: [],
+            tipomanut: []
+  
             
         }
     },
@@ -363,6 +379,30 @@ export default {
                 this.erro = error.message;
             });        
         },
+        tipomanutencao() {
+            const  key = 'frota2021house'
+            const  urldadostipomanutencao = process.env.VUE_APP_HOST + "tipomanutencao/search/" + key
+
+            this.axios.get(urldadostipomanutencao)
+            .then(response => {           
+    
+              if (response == undefined) {
+                  this.isLoading = false;
+                return false;
+              }  
+              if (response.status <= 201) {
+                 this.tipomanut = response.data   
+                 this.isLoading = false; 
+                return true;
+              } else {
+                return false;
+              }
+            })
+            .catch(error => {
+              this.isLoading = false;
+              alert(error);
+            })
+        },
         fechaFomulario(){
             this.dialog = false
             this.alert = false
@@ -409,6 +449,13 @@ export default {
             console.log(localStorage.visualiza)
         })
         this.novo()
+        this.carregatipoos()
+        this.carregasolicitante()
+        this.carregafornecedor()
+        this.carregalocalexecução()
+        this.carregaaprovador()
+        this.novo()
+        this.tipomanutencao()
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
@@ -422,6 +469,7 @@ export default {
         this.carregalocalexecução()
         this.carregaaprovador()
         this.novo()
+        this.tipomanutencao()
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
- <v-card>
-    <Dashboard v-show="true"></Dashboard>
+ <v-card> 
+    <Dashboard></Dashboard>
 
     <v-data-table :headers="headers" :items="gerenciar" sort-by="produto" class="elevation-1" :search="search" mobile-breakpoint="0"
      hide-default-footer  :page.sync="page"  :items-per-page="itemsPerPage"  @page-count="pageCount = $event"
@@ -171,7 +171,7 @@ export default {
                 { text: 'Placa', value: 'placa', class: "cyan dark 1 white--text" },
                 { text: 'Veiculo', value: 'veiculo', class: "cyan dark 1 white--text" },
                 { text: 'Motorista', value: 'motorista', class: "cyan dark 1 white--text" },
-                { text: 'Cliente', value: 'cliente', class: "cyan dark 1 white--text" },       
+                { text: 'Cliente', value: 'cliente', align: ' d-none', class: "cyan dark 1 white--text" },       
                 { text: 'Situação', value: 'situacao', class: "cyan dark 1 white--text" },            
                 { text: 'motoristaid', value: 'motoristaid', align: ' d-none',  class: "cyan dark 1 white--text" },
                 { text: 'veiculoid', value: 'veiculoid', align: ' d-none',  class: "cyan dark 1 white--text" },
@@ -207,8 +207,8 @@ export default {
             msgconfirmar: 'Deseja Excluir esta ROTA?',
             msgaexclusao: 'Exclusão execultada com Sucessso!',
             itensprojeto: 0 ,
-            exibe: false,
-            nrentrada: 0         
+            exibe: true,
+   
         }
     },
     methods: {
@@ -277,16 +277,21 @@ export default {
             EventBus.$emit('carregaexclusao', this.rota)
         },
         carregaimpressao(item){
-            this.rota.id = item.id
-            this.rota.visualiza = true  
-            EventBus.$emit('carregaimpressao', this.rota)
+            //this.rota.id = item.id
+           // this.rota.visualiza = true  
+           // EventBus.$emit('carregaimpressao', this.rota)
+            //this.exibe = false
+            this.$router.push("/rotaimpressao/"+item.id+"")
         }
     },
     mounted() { // gerencia o receber de dados de outro componente
+        this.exibe = localStorage.exibe
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },
     created() {
+        localStorage.exibe = true
+        this.exibe = localStorage.exibe    
         this.initialize()
         this.generatepagination()
      }
