@@ -226,13 +226,6 @@ export default {
         }   
 
     },
-    watch: {
-      overlay (val) {
-        val && setTimeout(() => {
-          this.overlay = false
-        }, 3000)
-      },
-    },
     mounted(){ // gerencia o receber de dados de outro componente
        this.exibeitens()
        this.novo()
