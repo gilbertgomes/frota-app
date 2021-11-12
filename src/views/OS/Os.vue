@@ -273,15 +273,16 @@ export default {
             EventBus.$emit('carregaitemos', this.os)
             //this.initialize()
         },
-        imprimientrada(item){
-          this.os.id = item.id
-          EventBus.$emit('carregaimpressaoos', this.os)
-        },
         exibelista(item) {
             this.os.id = item.id
             localStorage.os = item.id              
             EventBus.$emit('carregalista', this.os)
         },
+        imprimientrada(item){
+          this.os.id = item.id
+          EventBus.$emit('carregaimpressaoos', this.os)
+        },
+
     },
     mounted() { // gerencia o receber de dados de outro componente
     },

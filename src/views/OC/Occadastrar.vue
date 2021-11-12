@@ -5,15 +5,34 @@
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert" type="cyan">
-                            {{this.nomeFormulario}}
+                            Cadastro {{this.nomeFormulario}}
                         </v-alert>
                     </div>
                     <v-card-text>                     
                         <v-row>  
+                            <v-flex xs12 sm612 md12>
+                                <v-text-field  label="Setor Solicitante" v-model="oc.setor" :rules="oc.setorRules" name="setor" :value="oc.setor"  @input="textToUpper('setor')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>  
+                            <v-flex xs12 sm12 md12>
+                                <v-select
+                                    :items="solicitante"
+                                    item-text="solicitante" 
+                                    item-value="id"
+                                    label="Solicitante"
+                                    dense
+                                    outlined
+                                    v-model="oc.solicitante"
+                                    value = 'Selecione o Solicitante'
+                                    clearable
+                                ></v-select>
+                            </v-flex>         
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  label="Fonte pagadora" v-model="oc.fontepagadora" :rules="oc.fontepagadoraRules" name="fontepagadora"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex> 
                             <v-flex xs12 sm6 md6>
                                 <v-text-field  label="Prazo" v-model="oc.prazo" :rules="oc.praxzoRules" name="prazo"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>   
-                            <v-flex xs12 sm6 md6>
+                            <v-flex xs12 sm12 md12>
                                 <v-select
                                     :items="aprovador"
                                     item-text="aprovador" 
@@ -29,10 +48,10 @@
                             <v-flex xs12 sm6 md6>
                                 <v-text-field  label="Obs" v-model="oc.obs" :rules="oc.obsRules" name="obs"  :value="oc.obs"  @input="textToUpper('obs')"  clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>    
-                            <v-flex xs12 sm6 md6>
+                            <v-flex xs12 sm12 md12>
                                 <v-select
                                     :items="prioridade"
-                                    item-text=""  
+                                    item-text="" 
                                     item-value=""
                                     label="Prioridade da OC"
                                     dense
@@ -41,7 +60,7 @@
                                     value = 'Selecione a Prioridade da OC'
                                     clearable
                                 ></v-select>
-                            </v-flex>                            
+                            </v-flex>         
                         </v-row>
                     </v-card-text>
                     <div class="text-center"> 
@@ -66,7 +85,7 @@
                             color="cyan"
                             class="smf-gradient"
                             dark
-                            @click.prevent="update()"
+                            @click.prevent="insert()"
                         >
                         <v-icon dark>mdi-content-save-settings-outline</v-icon>
                         Salvar
@@ -100,7 +119,7 @@
 // @ts-nocheck
 import EventBus from '@/main.js'
 export default {
-    name: 'Alterar',
+    name: 'Cadastrar',
     components: {        
     },
     data() {
@@ -117,30 +136,35 @@ export default {
             cadastrar: [],
             oc: {
               id: 0,
+              setor: '',
+              setorRules: [ v => !!v || 'Setor é obrigatório!'],
               solicitante: '',
               solicitanteRules: [ v => !!v || 'Solicitante é obrigatório!'],
+              fontepagadora: '',
+              fontepagadoraRules: [ v => !!v || 'Fonte Pagadora é obrigatório!'],
               prazo: '',
               praxzoRules: [ v => !!v || 'Prazo é obrigatório!'],
               aprovador: '',
               aprovadorRules: [ v => !!v || 'aprovador é obrigatório!'],
               obs: '',
               obsRules: [ v => !!v || 'aprovador é obrigatório!'],
+              prioridade: '',
+              prioridadeles: [ v => !!v || 'aproPrioridadevador é obrigatório!'],
               visualiza: false,
             },
-            msgadd: 'Alteração execultada com sucesso!',
-            nomeFormulario: 'Alterar OC',
+            msgadd: 'Cadastro execultado com sucesso0',
+            nomeFormulario: 'Cadastrar OC',
             solicitante: [],
             aprovador: [],
             prioridade: [ '1 - NORMAL',  '2 - ALTA',  '3 - URGÊNCIA'],
-
         }
     },
     methods: {
-        update() {
+        insert() {
             const  key = 'frota2021house'
-            const  urlupdateoc = process.env.VUE_APP_HOST  + "oc/alt/" + key
+            const  urlinsertoc = process.env.VUE_APP_HOST  + "oc/add/" + key
             
-            this.axios.post(urlupdateoc, this.oc)
+            this.axios.post(urlinsertoc, this.oc)
             .then(response => {           
     
               if (response == undefined) {
@@ -163,24 +187,28 @@ export default {
             })
             this.fechaFomulario()
         },
-        fechaFomulario(){
-            this.dialog = false
-            this.alert = false
-        },
-        msgsucesso(){
-            this.dialog1 = true
-            this.alert1 = true
-        },
-        textToUpper(id) {
-            if(id == 'fabricante'){
-                this.fabricante.fabricante = this.fabricante.fabricante.toUpperCase()
-            }                
-        },
-        fechaFomulariomsg(){
-            this.dialog  = false
-            this.alert   = false
-            this.dialog1 = false
-            this.alert1  = false
+        carregasolicitante(){  
+            this.isLoading = true; 
+            const  urlsolicitante = process.env.VUE_APP_HOST + "solicitante/search/" + '1'
+
+            this.axios.get(urlsolicitante).then((response) => {
+                
+                let respostaurl = response.status
+                
+                if (respostaurl <= 201){// caso o response execute o post salvando os dados             
+                    this.solicitante = response.data 
+                    this.isLoading = false; 
+
+                } else {// caso o response retrone algum erro ao tentar salvar os dados 
+                    this.alert = true
+                    this.menssagemform = 'Ocorreu algum erro nos dados deste Pedido, verifique com o adm do sistema!'            
+                    this.mostraMenssagem(); // fecha o formulario de dados detalhado
+                }
+                this.isLoading = false;  
+            }).catch((error) => {
+                this.isLoading = false;
+                this.erro = error.message;
+            });        
         },
         carregaaprovador(){  
             this.isLoading = true; 
@@ -205,19 +233,35 @@ export default {
                 this.erro = error.message;
             });     
         },   
-
+        fechaFomulario(){
+            this.dialog = false
+            this.alert = false
+        },
+        msgsucesso(){
+            this.dialog1 = true
+            this.alert1 = true
+        },
+        textToUpper(id) {
+            if(id == 'setor'){
+                this.oc.setor = this.oc.setor.toUpperCase()
+            }                
+        },
+        fechaFomulariomsg(){
+            this.dialog  = false
+            this.alert   = false
+            this.dialog1 = false
+            this.alert1  = false
+        },
+        novo(){
+            this.oc.setor = ''
+            this.fontepagadora= ''
+            this.prazo= ''
+            this.obs= ''
+        }
     },
     mounted(){ // gerencia o receber de dados de outro componente
-        EventBus.$on('carregaalteracao', (oc) => {
+        EventBus.$on('carregacadastro', (oc) => {
             localStorage.visualiza = oc.visualiza
-            localStorage.id = oc.id
-            localStorage.prazo = oc.prazo
-            localStorage.obs = oc.obs
-   
-            this.oc.id = localStorage.id
-            this.oc.prazo =  localStorage.prazo
-            this.oc.obs =  localStorage.obs
-
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)
@@ -225,11 +269,13 @@ export default {
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
-            EventBus.$off('carregaalteracao')
+            EventBus.$off('carregacadastro')
         });
+        this.novo()
     },
     created(){
- 
+        this.novo()
+        this.carregasolicitante()
         this.carregaaprovador()
     }
 }

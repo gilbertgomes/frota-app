@@ -144,7 +144,7 @@ export default {
               tipoitem: '',
               tipoitemRules: [ v => !!v || 'tipo Item é obrigatório!'],   
               objeto: '',
-              objetoRules: [ v => !!v || 'Obbjeto / Descrição do item é obrigatório!'],   
+              objetoRules: [ v => !!v || 'Objeto / Descrição do item é obrigatório!'],   
               quant: '',
               quantRules: [ v => !!v || 'Quantidade é obrigatório!'],     
               valorun: '',
