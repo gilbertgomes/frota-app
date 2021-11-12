@@ -238,6 +238,29 @@ export default {
               alert(error);
             })
         },
+        atualiza() {
+            const  key = 'frota2021house'
+            const  urldadosentrada = process.env.VUE_APP_HOST + "entrada/search/" + key
+
+            this.axios.get(urldadosentrada)
+            .then(response => {           
+    
+              if (response == undefined) {
+                return false;
+              }  
+              if (response.status <= 201) {
+                 this.gerenciar = response.data   
+                 this.generatepagination()
+                return true;
+              } else {
+                return false;
+              }
+            })
+            .catch(error => {
+              this.isLoading = false;
+              alert(error);
+            })
+        },
         generatepagination(){            
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
@@ -322,7 +345,7 @@ export default {
         if (this.value === 100) {
           return (this.value = 0)
             }
-            this.initialize() 
+            this.atualiza() 
             this.value += 10  
         }, 5000)  
     },

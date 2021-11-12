@@ -48,6 +48,7 @@
                                     v-model="abastecimento.motorista"
                                     value = 'Selecione o nome do condutor'
                                     clearable
+                                    justify-content: left
                                 ></v-select>
                             </v-flex>     
                             <v-flex xs12 sm6 md6>
@@ -61,6 +62,7 @@
                                     v-model="abastecimento.fornecedor"
                                     value = 'Selecione o Fornecedor de combustivel'
                                     clearable
+                                    single-line
                                 ></v-select>
                             </v-flex>  
                             <v-flex xs12 sm66 md6>

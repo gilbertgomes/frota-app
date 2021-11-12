@@ -247,6 +247,28 @@ export default {
               alert(error);
             })
         },
+        atualiza() {
+            const  key = 'frota2021house'
+            const  urldadosrota = process.env.VUE_APP_HOST + "rota/search/" + key
+
+            this.axios.get(urldadosrota)
+            .then(response => {           
+    
+              if (response == undefined) {
+                return false;
+              }  
+              if (response.status <= 201) {
+                 this.gerenciar = response.data   
+                return true;
+              } else {
+                return false;
+              }
+            })
+            .catch(error => {
+              this.isLoading = false;
+              alert(error);
+            })
+        },
         generatepagination(){            
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
@@ -298,7 +320,14 @@ export default {
       },
     },
     mounted() { // gerencia o receber de dados de outro componente
-        this.exibe = localStorage.exibe
+      this.exibe = localStorage.exibe
+      this.interval = setInterval(() => {
+        if (this.value === 100) {
+          return (this.value = 0)
+            }
+            this.atualiza() 
+            this.value += 10  
+        }, 5000)
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },
