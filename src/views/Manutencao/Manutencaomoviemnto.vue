@@ -180,10 +180,10 @@ export default {
                   this.isLoading = false;
                 return false;
               }  
-              if (response.status <= 201) {            
-                 this.overlay = false; 
+              if (response.status <= 201) {      
                  this.gerenciaritem = response.data 
                  this.generatepagination()
+                 this.overlay = false;
                 return true;
               } else {
                 return false;
@@ -225,6 +225,13 @@ export default {
             this.os.dtconclusao = ''
         }   
 
+    },
+    watch: {
+      overlay (val) {
+        val && setTimeout(() => {
+          this.overlay = false
+        }, 3000)
+      },
     },
     mounted(){ // gerencia o receber de dados de outro componente
        this.exibeitens()

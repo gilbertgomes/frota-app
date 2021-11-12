@@ -1,6 +1,10 @@
 <template>
  <v-card>
     <Dashboard v-show="true"></Dashboard>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate  size="64" button color="red" :width="9">
+      </v-progress-circular>
+    </v-overlay>
 
     <v-data-table :headers="headers" :items="gerenciar" sort-by="produto" class="elevation-1" :search="search" mobile-breakpoint="0"
      hide-default-footer  :page.sync="page"  :items-per-page="itemsPerPage"  @page-count="pageCount = $event"
@@ -162,7 +166,8 @@ export default {
               prioridade: '',
               visualiza: false
             },
-            nomeformulario: 'OC'
+            nomeformulario: 'OC',
+            overlay: false, 
         }
     },
     methods: {
@@ -173,6 +178,7 @@ export default {
         },
         initialize() {
             const  key = 'frota2021house'
+            this.overlay = true
             const  urldadosOC = process.env.VUE_APP_HOST + "oc/search/" + key
 
             this.axios.get(urldadosOC)
@@ -184,7 +190,7 @@ export default {
               }  
               if (response.status <= 201) {
                  this.gerenciar = response.data   
-                 this.isLoading = false; 
+                 this.overlay = false
                 return true;
               } else {
                 return false;
@@ -228,6 +234,13 @@ export default {
           this.oc.id = item.id
           EventBus.$emit('carregaimpressaoos', this.oc)
         },
+    },
+    watch: {
+      overlay (val) {
+        val && setTimeout(() => {
+          this.overlay = false
+        }, 3000)
+      },
     },
     mounted() { // gerencia o receber de dados de outro componente
     },

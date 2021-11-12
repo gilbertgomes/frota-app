@@ -330,9 +330,9 @@ export default {
                 return false;
               }  
               if (response.status <= 201) {
-                 this.aprovaos = response.data   
-                 this.overlay = false    
-                 this.habilitamsgsucesso()                        
+                 this.aprovaos = response.data                       
+                 this.habilitamsgsucesso()  
+                 this.overlay = false                      
                 return true;
               } else {
                 return false;
@@ -445,6 +445,13 @@ export default {
           this.alert4 = false
           this.exibeitens()
         },    
+    },
+    watch: {
+      overlay (val) {
+        val && setTimeout(() => {
+          this.overlay = false
+        }, 3000)
+      },
     },
     mounted(){ // gerencia o receber de dados de outro componente
        this.exibeitens()

@@ -1,6 +1,10 @@
 <template>
  <v-card>
     <Dashboard v-show="true"></Dashboard>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate  size="64" button color="red" :width="9">
+      </v-progress-circular>
+    </v-overlay>
 
     <v-data-table :headers="headers" :items="gerenciar" sort-by="produto" class="elevation-1" :search="search" mobile-breakpoint="0"
      hide-default-footer  :page.sync="page"  :items-per-page="itemsPerPage"  @page-count="pageCount = $event"
@@ -206,7 +210,8 @@ export default {
             msgaexclusao: 'Exclusão execultada com Sucessso!',
             itensprojeto: 0 ,
             exibe: false,
-            nrentrada: 0         
+            nrentrada: 0,  
+            overlay: false,        
         }
     },
     methods: {
@@ -217,6 +222,7 @@ export default {
         },
         initialize() {
             const  key = 'frota2021house'
+            this.overlay = true
             const  urldadosos = process.env.VUE_APP_HOST + "os/search/" + key
 
             this.axios.get(urldadosos)
@@ -228,7 +234,7 @@ export default {
               }  
               if (response.status <= 201) {
                  this.gerenciar = response.data   
-                 this.isLoading = false; 
+                 this.overlay = false 
                 return true;
               } else {
                 return false;
@@ -283,6 +289,13 @@ export default {
           EventBus.$emit('carregaimpressaoos', this.os)
         },
 
+    },
+    watch: {
+      overlay (val) {
+        val && setTimeout(() => {
+          this.overlay = false
+        }, 3000)
+      },
     },
     mounted() { // gerencia o receber de dados de outro componente
     },
