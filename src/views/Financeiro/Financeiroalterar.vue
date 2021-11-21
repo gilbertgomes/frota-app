@@ -5,26 +5,28 @@
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert" type="cyan">
-                            Cadastro {{this.nomeFormulario}}
+                            {{this.nomeFormulario}}
                         </v-alert>
                     </div>
                     <v-card-text>                     
                         <v-row>  
-                            <v-flex xs12 sm612 md12>
-                                <v-text-field  label="Tipo de Receita e Despesas" v-model="tiporecdesp.tipodr" :rules="tiporecdesp.tipodrRules" name="tipodr" :value="tiporecdesp.tipodr"  @input="textToUpper('tipodr')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  readonly label="Nº Documento/Nf" v-model="financeiro.documento" :rules="financeiro.documentoRules" name="documento" :value="financeiro.documento"  @input="textToUpper('documento')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex> 
-                            <v-flex xs12 sm12 md12>
-                                <v-select
-                                    :items="tipomov"
-                                    item-text="" 
-                                    item-value=""
-                                    label="Tipo Receita ou Despesa"
-                                    dense
-                                    outlined
-                                    v-model="tiporecdesp.tipo"
-                                    value = 'Selecione o tipo de receita ou despesa'
-                                    clearable
-                                ></v-select>
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  readonly label="Quantidde" v-model="financeiro.quant" :rules="financeiro.quantRules" name="quant" :value="financeiro.quant"  @input="textToUpper('quant')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>   
+                            <v-flex xs12 sm66 md6>
+                                <v-text-field readonly label="Valor Un" v-model="financeiro.valorun" :rules="financeiro.valorunRules" name="valorun" :value="financeiro.valorun"  @input="textToUpper('valorun')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>  
+                            <v-flex xs12 sm66 md6>
+                                <v-text-field  readonly label="Valor Total" v-model="financeiro.valortot" :rules="financeiro.valortotRules" name="valortot" :value="financeiro.valortot"  @input="textToUpper('valortot')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>  
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  readonly label="Data Pagamento" v-model="financeiro.datapag"  v-mask="'##/##/####'" :rules="financeiro.valortotRules" name="datapag" :value="financeiro.datapag"  @input="textToUpper('datapag')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex> 
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  label="Valor Pagamento" v-model="financeiro.valorpagrec" :rules="financeiro.valorpagrecRules" name="valorpagrec" :value="financeiro.valorpagrec"  @input="textToUpper('valorpagrec')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>                          
                         </v-row>
                     </v-card-text>
@@ -50,7 +52,7 @@
                             color="cyan"
                             class="smf-gradient"
                             dark
-                            @click.prevent="insert()"
+                            @click.prevent="update()"
                         >
                         <v-icon dark>mdi-content-save-settings-outline</v-icon>
                         Salvar
@@ -84,7 +86,7 @@
 // @ts-nocheck
 import EventBus from '@/main.js'
 export default {
-    name: 'Cadastrar',
+    name: 'Alterar',
     components: {        
     },
     data() {
@@ -99,25 +101,35 @@ export default {
             isLoading: false,
             fullPage:   true,  
             cadastrar: [],
-            tiporecdesp: {
+            financeiro: {
               id: 0,
-              tipodr: '',
-              tipodrRules: [ v => !!v || 'Tipo de Despesas e Receita é obrigatório!'],  
-              tipo: '',             
+              tipofinanceiro: '',
+              documento: '',
+              documentoRules: [ v => !!v || 'Documento é obrigatório!'], 
+              quant: '',
+              quantRules: [ v => !!v || 'Quantidade é obrigatório!'],        
+              valorun: '',
+              valorunRules: [ v => !!v || 'Valor Un é obrigatório!'],  
+              valortot: '',
+              valortotRules: [ v => !!v || 'Valor total é obrigatório!'],  
+              datapag: '',
+              datapagRules: [ v => !!v || 'Data Pagamento é obrigatório!'],   
+              valorpagrec: '',
+              valorpagrecRules: [ v => !!v || 'Valor é obrigatório!'],  
+              tipord: '',
+              tipordRules: [ v => !!v || 'Tipo receita / despesa é obrigatório!'],        
               visualiza: false,
             },
-            msgadd: 'Cadastro execultado com sucesso0',
-            nomeFormulario: 'Tipo Despesa e Receita',
-            tipo: [],
-            tipomov: [ '1 -Receita',  '2 - Despesa'],
+            msgadd: 'Alteração execultada com sucesso!',
+            nomeFormulario: 'Alterar Financeiro'
         }
     },
     methods: {
-        insert() {
+        update() {
             const  key = 'frota2021house'
-            const  urlinserttiporecdesp = process.env.VUE_APP_HOST  + "recedesp/add/" + key
+            const  urlupdatefinanceiro = process.env.VUE_APP_HOST  + "financeiro/alt/" + key
             
-            this.axios.post(urlinserttiporecdesp, this.tiporecdesp)
+            this.axios.post(urlupdatefinanceiro, this.financeiro)
             .then(response => {           
     
               if (response == undefined) {
@@ -149,8 +161,8 @@ export default {
             this.alert1 = true
         },
         textToUpper(id) {
-            if(id == 'tipodr'){
-                this.tiporecdesp.tipodr = this.tiporecdesp.tipodr.toUpperCase()
+            if(id == 'financeiro'){
+                this.financeiro.documento = this.financeiro.documento.toUpperCase()
             }                
         },
         fechaFomulariomsg(){
@@ -158,14 +170,26 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
-        },
-        novo(){
-            this.tipoproduto.tipoproduto = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
-        EventBus.$on('carregacadastroadd', (tiporecdesp) => {
-            localStorage.visualiza = tiporecdesp.visualiza
+        EventBus.$on('carregaalteracao', (financeiro) => {
+            localStorage.visualiza = financeiro.visualiza
+            localStorage.id = financeiro.id
+            localStorage.documento = financeiro.documento
+            localStorage.valorun = financeiro.valorun
+            localStorage.valortot = financeiro.valortot
+            localStorage.dtpag = financeiro.dtpag
+            localStorage.valorrecpag = financeiro.valorrecpag
+   
+            this.financeiro.id = localStorage.id
+            this.financeiro.documento = localStorage.documento
+            this.financeiro.valorun = localStorage.valorun
+            this.financeiro.valortot = localStorage.valortot
+            this.financeiro.dtpag = localStorage.dtpag
+            this.financeiro.valorrecpag = localStorage.valorrecpag
+            this.financeiro.visualiza = true
+
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)
@@ -173,12 +197,10 @@ export default {
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
-            EventBus.$off('carregacadastro')
+            EventBus.$off('carregaalteracao')
         });
-        this.novo()
     },
     created(){
-        this.novo()
     }
 }
 </script>

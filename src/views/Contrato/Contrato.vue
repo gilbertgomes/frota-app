@@ -5,6 +5,7 @@
       <v-progress-circular indeterminate  size="64" button color="red" :width="9">
       </v-progress-circular>
     </v-overlay>
+
     <v-data-table :headers="headers" :items="gerenciar" sort-by="produto" class="elevation-1" :search="search" mobile-breakpoint="0"
      hide-default-footer  :page.sync="page"  :items-per-page="itemsPerPage"  @page-count="pageCount = $event"
     >
@@ -42,7 +43,22 @@
       </template>
       <v-spacer></v-spacer> 
     </template>
-
+    <template v-slot:item.situacao="{ item }">
+        <v-chip
+            :color="getColor(item.situacao)"
+            dark
+        >
+        {{ item.situacao }}
+        </v-chip>
+    </template>
+    <template v-slot:item.cliente="{ item }">
+        <v-chip
+            color="#5c007a"
+            dark
+        >
+        {{ item.cliente }}
+        </v-chip>
+    </template>
     <template v-slot:item.actions="{ item }">
       <v-tooltip left color="blue">
         <template v-slot:activator="{ on, attrs }">
@@ -74,8 +90,8 @@ import EventBus from '@/main.js'
 export default {
     components: {   
         Dashboard: () => import('@/components/Dashboard/Dashboard.vue'),   
-        Cadastrar: () => import('@/views/TipoReceitaDesp/Tiporeceitadespesacadastrar.vue'),
-        Alterar:   () => import('@/views/TipoReceitaDesp/Tipodespesaalterar.vue'),
+        Cadastrar: () => import('@/views/Contrato/Contratocadastrar.vue'),
+        Alterar:   () => import('@/views/Contrato/Contratoalterar.vue'),
     },
     name: 'Fabricante',
     data() {
@@ -93,9 +109,18 @@ export default {
                     value: 'id',
                     class: "cyan dark 1 white--text",  color: this.corForm 
                 },
-                { text: 'Descrição Receita/Despesa', value: 'tipodr', class: "cyan dark 1 white--text" },
-                { text: 'Tipo Receita/Despesa', value: 'tipo', class: "cyan dark 1 white--text" },
-                { text: 'Detalhes', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
+                { text: 'Data', value: 'data', class: "cyan dark 1 white--text" },
+                { text: 'Contrato', value: 'objeto', class: "cyan dark 1 white--text" },
+                { text: 'Cliente', value: 'cliente', class: "cyan dark 1 white--text" },
+                { text: 'Assinatura', value: 'dtassinatura', class: "cyan dark 1 white--text" },
+                { text: 'Inicio', value: 'dtinicio', class: "cyan dark 1 white--text" },
+                { text: 'Fim', value: 'dtfim', class: "cyan dark 1 white--text" },
+                { text: 'Prazo', value: 'prazp', class: "cyan dark 1 white--text" },
+                { text: 'Valor Total', value: 'valorcontrato', class: "cyan dark 1 white--text" },
+                { text: 'Valor Mês', value: 'valormes', class: "cyan dark 1 white--text" },
+                { text: 'Obs', value: 'obs', class: "cyan dark 1 white--text" },
+                { text: 'Situação', value: 'situacao', class: "cyan dark 1 white--text" },
+                { text: 'Ação', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
             ],
             gerenciarCampos: [],
             gerenciar: [],
@@ -108,29 +133,34 @@ export default {
               total: 0,
               total1: 0
             }, 
-            tiporecdesp: {
+            contrato: {
               id: 0,
-              tipodr: '',
-              tipo: '',
+              objeto: '',
+              cliente: '',
+              dtassinatura: '',
+              dtinicio: '',
+              dtfim: '',
+              prazo: '',
+              obs: '',
+              situacao: '',
               visualiza: false
             },
-            nomeformulario: 'Tipo Receita / Despesa',
+            nomeformulario: 'Contrato',
             overlay: false, 
-            
         }
     },
     methods: {
         carregaForm() {
-            this.tiporecdesp.visualiza = true
-            EventBus.$emit('carregacadastroadd', this.tiporecdesp)
+            this.contrato.visualiza = true
+            EventBus.$emit('carregacadastro', this.contrato)
             this.initialize()
         },
         initialize() {
             const  key = 'frota2021house'
             this.overlay = true
-            const  urldadostipodesprec = process.env.VUE_APP_HOST + "recedesp/search/" + key
+            const  urldadoscontrato = process.env.VUE_APP_HOST + "contrato/search/" + key
 
-            this.axios.get(urldadostipodesprec)
+            this.axios.get(urldadoscontrato)
             .then(response => {           
     
               if (response == undefined) {
@@ -154,11 +184,21 @@ export default {
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
         alteraritem(item) {
-            this.tiporecdesp.id = item.id
-            this.tiporecdesp.tipodr = item.tipodr
-            this.tiporecdesp.visualiza = true
-            EventBus.$emit('carregaalteracao', this.tiporecdesp)
+            this.contrato.id = item.id
+            this.contrato.objeto = item.objeto
+            this.contrato.dtassinatura = item.dtassinatura
+            this.contrato.dtinicio = item.dtinicio
+            this.contrato.valorcontrato = item.valorcontrato
+            this.contrato.valormes = item.valormes
+            this.contrato.visualiza = true
+            EventBus.$emit('carregaalteracao', this.contrato)
             this.initialize()
+        },
+        getColor (situacao) {
+            if (situacao == 'Pendente') return 'red'
+            else if (situacao == 'Quitada') return 'primary'
+            else if (situacao == 'Cancelada') return 'orange'
+            else return 'green'           
         },
     },
     watch: {

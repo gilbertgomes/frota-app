@@ -5,6 +5,7 @@
       <v-progress-circular indeterminate  size="64" button color="red" :width="9">
       </v-progress-circular>
     </v-overlay>
+
     <v-data-table :headers="headers" :items="gerenciar" sort-by="produto" class="elevation-1" :search="search" mobile-breakpoint="0"
      hide-default-footer  :page.sync="page"  :items-per-page="itemsPerPage"  @page-count="pageCount = $event"
     >
@@ -42,7 +43,22 @@
       </template>
       <v-spacer></v-spacer> 
     </template>
-
+    <template v-slot:item.situacao="{ item }">
+        <v-chip
+            :color="getColor(item.situacao)"
+            dark
+        >
+        {{ item.situacao }}
+        </v-chip>
+    </template>
+    <template v-slot:item.tipodespesareceita="{ item }">
+        <v-chip
+            color="teal"
+            dark
+        >
+        {{ item.tipodespesareceita }}
+        </v-chip>
+    </template>
     <template v-slot:item.actions="{ item }">
       <v-tooltip left color="blue">
         <template v-slot:activator="{ on, attrs }">
@@ -74,8 +90,8 @@ import EventBus from '@/main.js'
 export default {
     components: {   
         Dashboard: () => import('@/components/Dashboard/Dashboard.vue'),   
-        Cadastrar: () => import('@/views/TipoReceitaDesp/Tiporeceitadespesacadastrar.vue'),
-        Alterar:   () => import('@/views/TipoReceitaDesp/Tipodespesaalterar.vue'),
+        Cadastrar: () => import('@/views/Financeiro/Financeirocadastro.vue'),
+        Alterar:   () => import('@/views/Financeiro/Financeiroalterar.vue'),
     },
     name: 'Fabricante',
     data() {
@@ -93,9 +109,17 @@ export default {
                     value: 'id',
                     class: "cyan dark 1 white--text",  color: this.corForm 
                 },
-                { text: 'Descrição Receita/Despesa', value: 'tipodr', class: "cyan dark 1 white--text" },
-                { text: 'Tipo Receita/Despesa', value: 'tipo', class: "cyan dark 1 white--text" },
-                { text: 'Detalhes', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
+                { text: 'Data', value: 'data', class: "cyan dark 1 white--text" },
+                { text: 'Tipo Financeiro', value: 'tipofinaceiro', class: "cyan dark 1 white--text" },
+                { text: 'Despesa/Receita', value: 'tipodespesareceita', class: "cyan dark 1 white--text" },
+                { text: 'Documento', value: 'documento', class: "cyan dark 1 white--text" },
+                { text: 'Quantidade', value: 'quant', class: "cyan dark 1 white--text" },
+                { text: 'Valor Un', value: 'valorun', class: "cyan dark 1 white--text" },
+                { text: 'Valor Total', value: 'valortot', class: "cyan dark 1 white--text" },
+                { text: 'Dt Pag', value: 'dtpag', class: "cyan dark 1 white--text" },
+                { text: 'Valor Pago', value: 'valorrecpag', class: "cyan dark 1 white--text" },
+                { text: 'Situação', value: 'situacao', class: "cyan dark 1 white--text" },
+                { text: 'Ação', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
             ],
             gerenciarCampos: [],
             gerenciar: [],
@@ -108,29 +132,34 @@ export default {
               total: 0,
               total1: 0
             }, 
-            tiporecdesp: {
+            financeiro: {
               id: 0,
-              tipodr: '',
-              tipo: '',
+              tipofinanceiro: '',
+              quant: '',
+              valorun: '',
+              valortot: '',
+              datapag: '',
+              valorpagrec: '',
+              tipord: '',
+              situacao: '',
               visualiza: false
             },
-            nomeformulario: 'Tipo Receita / Despesa',
+            nomeformulario: 'Financeiro',
             overlay: false, 
-            
         }
     },
     methods: {
         carregaForm() {
-            this.tiporecdesp.visualiza = true
-            EventBus.$emit('carregacadastroadd', this.tiporecdesp)
+            this.financeiro.visualiza = true
+            EventBus.$emit('carregacadastro', this.financeiro)
             this.initialize()
         },
         initialize() {
             const  key = 'frota2021house'
             this.overlay = true
-            const  urldadostipodesprec = process.env.VUE_APP_HOST + "recedesp/search/" + key
+            const  urldadosfinanceiro = process.env.VUE_APP_HOST + "financeiro/search/" + key
 
-            this.axios.get(urldadostipodesprec)
+            this.axios.get(urldadosfinanceiro)
             .then(response => {           
     
               if (response == undefined) {
@@ -154,11 +183,21 @@ export default {
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
         alteraritem(item) {
-            this.tiporecdesp.id = item.id
-            this.tiporecdesp.tipodr = item.tipodr
-            this.tiporecdesp.visualiza = true
-            EventBus.$emit('carregaalteracao', this.tiporecdesp)
+            this.financeiro.id = item.id
+            this.financeiro.documento = item.documento
+            this.financeiro.valorun = item.valorun
+            this.financeiro.valortot = item.valortot
+            this.financeiro.dtpag = item.dtpag
+            this.financeiro.valorrecpag = item.valorrecpag
+            this.financeiro.visualiza = true
+            EventBus.$emit('carregaalteracao', this.financeiro)
             this.initialize()
+        },
+        getColor (situacao) {
+            if (situacao == 'Pendente') return 'red'
+            else if (situacao == 'Quitada') return 'primary'
+            else if (situacao == 'Cancelada') return 'orange'
+            else return 'green'           
         },
     },
     watch: {

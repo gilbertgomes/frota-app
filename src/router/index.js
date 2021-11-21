@@ -286,6 +286,18 @@ const routes = [
     component: () =>
         import ( /* webpackChunkName: "Dashboard" */ '@/views/OC/Oc.vue')
   },
+  {
+    path: '/financeiro',
+    name: 'Financeiro',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Financeiro/Financeiro.vue')
+  },
+  {
+    path: '/contrato',
+    name: 'Contrato',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Contrato/Contrato.vue')
+  },
 ]
 
 const router = new VueRouter({

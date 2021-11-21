@@ -5,26 +5,28 @@
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert" type="cyan">
-                            Cadastro {{this.nomeFormulario}}
+                            {{this.nomeFormulario}}
                         </v-alert>
                     </div>
                     <v-card-text>                     
                         <v-row>  
-                            <v-flex xs12 sm612 md12>
-                                <v-text-field  label="Tipo de Receita e Despesas" v-model="tiporecdesp.tipodr" :rules="tiporecdesp.tipodrRules" name="tipodr" :value="tiporecdesp.tipodr"  @input="textToUpper('tipodr')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field   label="Objeto Contrato" v-model="contrato.objeto" :rules="contrato.documentoRules" name="objeto" :value="contrato.objeto"  @input="textToUpper('objeto')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex> 
-                            <v-flex xs12 sm12 md12>
-                                <v-select
-                                    :items="tipomov"
-                                    item-text="" 
-                                    item-value=""
-                                    label="Tipo Receita ou Despesa"
-                                    dense
-                                    outlined
-                                    v-model="tiporecdesp.tipo"
-                                    value = 'Selecione o tipo de receita ou despesa'
-                                    clearable
-                                ></v-select>
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  readonly label="Data Assinatura" v-model="contrato.dtassinatura"  v-mask="'##/##/####'" :rules="contrato.valortotRules" name="dtassinatura" :value="contrato.dtassinatura"  @input="textToUpper('dtassinatura')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  readonly label="Data Inicio" v-model="contrato.dtinicio"  v-mask="'##/##/####'" :rules="contrato.valortotRules" name="dtassinatura" :value="contrato.dtinicio"  @input="textToUpper('dtinicio')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field label="Data Fim" v-model="contrato.dtfim"  v-mask="'##/##/####'" :rules="contrato.valortotRules" name="dtfim" :value="contrato.dtfim"  @input="textToUpper('dtfim')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>   
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  label="Prazo" v-model="contrato.prazo" :rules="contrato.valorpagrecRules" name="prazo" :value="contrato.prazo"  @input="textToUpper('prazo')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex> 
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field  label="Valor Contrato" v-model="contrato.valorcontrato" :rules="contrato.valorpagrecRules" name="valorcontrato" :value="contrato.valorcontrato"  @input="textToUpper('valorcontrato')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>                          
                         </v-row>
                     </v-card-text>
@@ -50,7 +52,7 @@
                             color="cyan"
                             class="smf-gradient"
                             dark
-                            @click.prevent="insert()"
+                            @click.prevent="update()"
                         >
                         <v-icon dark>mdi-content-save-settings-outline</v-icon>
                         Salvar
@@ -84,7 +86,7 @@
 // @ts-nocheck
 import EventBus from '@/main.js'
 export default {
-    name: 'Cadastrar',
+    name: 'Alterar',
     components: {        
     },
     data() {
@@ -99,25 +101,37 @@ export default {
             isLoading: false,
             fullPage:   true,  
             cadastrar: [],
-            tiporecdesp: {
+            contrato: {
               id: 0,
-              tipodr: '',
-              tipodrRules: [ v => !!v || 'Tipo de Despesas e Receita é obrigatório!'],  
-              tipo: '',             
+              objeto: '',
+              objetoRules: [ v => !!v || 'Objeto é obrigatório!'], 
+              cliente: '',
+              clienteRules: [ v => !!v || 'Cliente é obrigatório!'],        
+              dtassinatura: '',
+              dtassinaturaRules: [ v => !!v || 'Assinatura Un é obrigatório!'],  
+              dtinicio: '',
+              dtinicioRules: [ v => !!v || 'Data Inicio total é obrigatório!'],  
+              dtfim: '',
+              dtfimRules: [ v => !!v || 'Data Fim é obrigatório!'],   
+              prazo: '',
+              prazoRules: [ v => !!v || 'Prazo é obrigatório!'],  
+              valorcontrato: '',
+              valormes: '',
+              valorsaldo: '',
+              obs: '',
+              obsRules: [ v => !!v || 'Obs é obrigatório!'],        
               visualiza: false,
             },
-            msgadd: 'Cadastro execultado com sucesso0',
-            nomeFormulario: 'Tipo Despesa e Receita',
-            tipo: [],
-            tipomov: [ '1 -Receita',  '2 - Despesa'],
+            msgadd: 'Alteração execultada com sucesso!',
+            nomeFormulario: 'Alterar Contrato'
         }
     },
     methods: {
-        insert() {
+        update() {
             const  key = 'frota2021house'
-            const  urlinserttiporecdesp = process.env.VUE_APP_HOST  + "recedesp/add/" + key
+            const  urlupdatecontrato = process.env.VUE_APP_HOST  + "contrato/alt/" + key
             
-            this.axios.post(urlinserttiporecdesp, this.tiporecdesp)
+            this.axios.post(urlupdatecontrato, this.contrato)
             .then(response => {           
     
               if (response == undefined) {
@@ -149,8 +163,8 @@ export default {
             this.alert1 = true
         },
         textToUpper(id) {
-            if(id == 'tipodr'){
-                this.tiporecdesp.tipodr = this.tiporecdesp.tipodr.toUpperCase()
+            if(id == 'objeto'){
+                this.contrato.objeto = this.contrato.objeto.toUpperCase()
             }                
         },
         fechaFomulariomsg(){
@@ -158,14 +172,25 @@ export default {
             this.alert   = false
             this.dialog1 = false
             this.alert1  = false
-        },
-        novo(){
-            this.tipoproduto.tipoproduto = ''
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
-        EventBus.$on('carregacadastroadd', (tiporecdesp) => {
-            localStorage.visualiza = tiporecdesp.visualiza
+        EventBus.$on('carregaalteracao', (contrato) => {
+            localStorage.visualiza = contrato.visualiza
+            localStorage.id = contrato.id
+            localStorage.objeto = contrato.objeto
+            localStorage.dtassinatura = contrato.dtassinatura
+            localStorage.dtinicio = contrato.dtinicio
+            localStorage.valorcontrato = contrato.valorcontrato
+            localStorage.valormes = contrato.valormes
+
+            this.contrato.id = localStorage.id
+            this.contrato.objeto = localStorage.objeto
+            this.contrato.dtassinatura = localStorage.dtassinatura
+            this.contrato.dtinicio = localStorage.dtinicio
+            this.contrato.valorcontrato = localStorage.valorcontrato
+            this.contrato.valormes = localStorage.valormes
+
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)
@@ -173,12 +198,10 @@ export default {
     },
     beforeDestroy(){ // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {
-            EventBus.$off('carregacadastro')
+            EventBus.$off('carregaalteracao')
         });
-        this.novo()
     },
     created(){
-        this.novo()
     }
 }
 </script>

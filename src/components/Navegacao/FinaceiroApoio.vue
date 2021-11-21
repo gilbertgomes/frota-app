@@ -54,21 +54,23 @@ export default {
             itemssituacao: ['1 - ATIVO', '2 -INATIVO'],
             alterar: [],
             items: [
-                { bottom: '1', color: '#7e57c2', text: 'Financeiro', textitem: '.', icon: 'mdi-cash-check' }, 
-                { bottom: '2', color: '#7e57c2', text: 'Contrato', textitem: '.', icon: 'mdi-clipboard-edit-outline' },               
+                { bottom: '1', color: '#6a0080', text: 'Tipo', textitem: 'Financeiro', icon: 'mdi-book-open-page-variant' }, 
+                { bottom: '2', color: '#6a0080', text: 'Tipo', textitem: 'Receita/Despesa', icon: 'mdi-chart-bar' },   
+                { bottom: '3', color: '#6a0080', text: 'Financeiro', textitem: '.', icon: 'mdi-cash-check' }, 
+                { bottom: '4', color: '#6a0080', text: 'Contrato', textitem: '.', icon: 'mdi-clipboard-edit-outline' },               
             ],
         }
     },
     methods: {
          acessabotao(botao) {
             if (botao == '1') {
-                this.$router.push("/funerariaCad");
+                this.$router.push("/tipofinanceiro");
             } else if (botao == '2') {
-                this.$router.push("/funeraria")
+                this.$router.push("/tiporecdesp")
             } else if (botao == '3') {
-                this.$router.push("/funerariaFuncionario")
+                this.$router.push("/financeiro")
             } else if (botao == '4') {
-                this.$router.push("/funerariaveiculo")
+                this.$router.push("/Contrato")
             } 
         },
         alterarItem() { //
