@@ -191,6 +191,7 @@ export default {
             }, 
             os: {
               id: 0,
+              numero: 0,
               local: '',
               fornecdor: '',
               tipoos: '',
@@ -275,6 +276,7 @@ export default {
         },
         insereitem(item) {
             this.os.id = item.id
+            this.os.numero = item.numero
             localStorage.os = item.id  
             EventBus.$emit('carregaitemos', this.os)
             //this.initialize()

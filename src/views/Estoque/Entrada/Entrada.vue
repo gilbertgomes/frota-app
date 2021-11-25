@@ -151,14 +151,15 @@ export default {
                     class: "cyan dark 1 white--text",  color: this.corForm 
                 },
                 { text: 'Data', value: 'data', class: "cyan dark 1 white--text" },
-                { text: 'Nº Documento', value: 'documento', class: "cyan dark 1 white--text" },
+                { text: 'Nº OC', value: 'oc', class: "cyan dark 1 white--text" },
+                { text: 'Nº Documento', value: 'documento', class: "cyan dark 1 white--text" },               
                 { text: 'Valor NF', value: 'valortot', class: "cyan dark 1 white--text" },
                 { text: 'Fornecedor', value: 'fornecedor', class: "cyan dark 1 white--text" },
                 { text: 'Obs', value: 'obs', class: "cyan dark 1 white--text" },
                 { text: 'Situção', value: 'situacao', class: "cyan dark 1 white--text" },
                 { text: 'forid', value: 'forid', align: ' d-none',  class: "cyan dark 1 white--text" },
                 { text: 'Ação', align: 'center', value: 'actions', sortable: false, class: "cyan dark 1 white--text" }
-            ],            
+            ],    
             gerenciarCampos: [],
             gerenciar: [],
             gerenciaritem: [],
@@ -207,7 +208,7 @@ export default {
     },
     methods: {
         carregaForm() {
-            this.entrada.visualiza = true
+            this.atualiza.visualiza = true
             EventBus.$emit('carregacadastro', this.entrada)
             this.initialize()
         },
@@ -347,7 +348,7 @@ export default {
             }
             this.atualiza() 
             this.value += 10  
-        }, 5000)  
+        }, 6000)  
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },

@@ -298,6 +298,12 @@ const routes = [
     component: () =>
         import ( /* webpackChunkName: "Dashboard" */ '@/views/Contrato/Contrato.vue')
   },
+  {
+    path: '/categoriaps',
+    name: 'Categoriaps',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/views/Categoriaps/Categoriaps.vue')
+  },
 ]
 
 const router = new VueRouter({

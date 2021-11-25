@@ -10,7 +10,10 @@
                     </div>
                     <v-card-text>                     
                         <v-row>  
-                            <v-flex xs12 sm12 md12>
+                            <v-flex xs12 sm6 md6>
+                                <v-text-field   background-color="amber lighten-4"  color="orange orange-darken-4" label="Nº OS" v-model="ositem.osnumero"  readonly  name="quant" :value="ositem.quant"  @input="somentenumero('quant')"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
+                            </v-flex>
+                            <v-flex xs12 sm6 md6>
                                 <v-select
                                     :items="tipoitemos"
                                     item-text="" 
@@ -141,6 +144,7 @@ export default {
             ositem: {
               id: 0,
               os: '',
+              osnumero: 0,
               tipoitem: '',
               tipoitemRules: [ v => !!v || 'tipo Item é obrigatório!'],   
               objeto: '',
@@ -265,7 +269,8 @@ export default {
         EventBus.$on('carregaitemos', (os) => {
             localStorage.visualiza = os.visualiza
             localStorage.os = os.id
-            this.ositem.os = localStorage.os
+            localStorage.osnumero = os.numero
+            this.ositem.osnumero = localStorage.osnumero
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)

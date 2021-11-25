@@ -56,10 +56,10 @@ export default {
             items: [
                 { bottom: '1', color: '#ca5d90', text: 'Aprovador', textitem: 'Autorização', icon: 'mdi-air-filter' }, 
                 { bottom: '2', color: '#ca5d90', text: 'Tipo', textitem: 'OS', icon: 'mdi-file-swap-outline' }, 
-                //{ bottom: '3', color: '#ca5d90', text: 'Tipo', textitem: 'Prazo', icon: 'mdi-av-timer' },               
-                { bottom: '3', color: '#ca5d90', text: 'Solicitante', textitem: '.', icon: 'mdi-gesture-tap-button' },           
-                { bottom: '4', color: '#ca5d90', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-format-page-break' },   
-                { bottom: '5', color: '#ca5d90', text: 'Ordem', textitem: 'Compra', icon: 'mdi-calculator' },       
+                { bottom: '3', color: '#ca5d90', text: 'Categoria', textitem: 'PeçaServiço', icon: 'mdi-pipe-wrench' },               
+                { bottom: '4', color: '#ca5d90', text: 'Solicitante', textitem: '.', icon: 'mdi-gesture-tap-button' },           
+                { bottom: '5', color: '#ca5d90', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-format-page-break' },   
+                { bottom: '6', color: '#ca5d90', text: 'Ordem', textitem: 'Compra', icon: 'mdi-calculator' },       
             ],
         }
     },
@@ -70,12 +70,14 @@ export default {
             } else if (botao == '2') {
                 this.$router.push("/tipoos")
             } else if (botao == '3') {
-                this.$router.push("/solicitante")
+                this.$router.push("/categoriaps")
             } else if (botao == '4') {
-                this.$router.push("/osserv")
+                this.$router.push("/categoriaps")
             } else if (botao == '5') {
+                this.$router.push("/osserv")
+            } else if (botao == '6') {
                 this.$router.push("/oc")
-            } 
+            }
         },
         alterarItem() { //
             const urlupdateusuario = process.env.VUE_APP_HOST + "usuario/alter"

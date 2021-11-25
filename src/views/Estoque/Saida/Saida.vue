@@ -227,7 +227,7 @@ export default {
     },
     methods: {
         carregaForm() {
-            this.saida.visualiza = true
+            this.atualiza.visualiza = true
             EventBus.$emit('carregacadastro', this.saida)
             this.initialize()
         },
@@ -274,7 +274,6 @@ export default {
               }
             })
             .catch(error => {
-              this.isLoading = false;
               alert(error);
             })
         },
@@ -365,7 +364,7 @@ export default {
             }
             this.atualiza() 
             this.value += 10  
-        }, 5000)  
+        }, 6000)  
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },
