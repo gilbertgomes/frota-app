@@ -23,21 +23,23 @@
                                     outlined
                                     v-model="ositem.tipoitem"
                                     value = 'Selecione o Tipo de Serviço / Peças caso seja necessário!'
+                                    @change="montacategoria(ositem.tipoitem)"
                                     clearable
                                 ></v-select>
                             </v-flex> 
-                            <v-flex xs12 sm12 md12>   
-                                <v-textarea
-                                    name="input-7-1"
-                                    filled
-                                    label="Objeto Serviço / Peça"
-                                    auto-grow                                    
-                                    v-model="ositem.objeto" 
-                                    :rules="ositem.objetoRules" 
-                                    :value="ositem.objeto"  
-                                    @input="textToUpper('objeto')" 
-                                ></v-textarea> 
-                            </v-flex>
+                            <v-flex xs12 sm12 md12>
+                                <v-select
+                                    :items="categoria"
+                                    item-text="pecaserv" 
+                                    item-value="id"
+                                    label="Categoria de peças / Serviços"
+                                    dense
+                                    outlined
+                                    v-model="ositem.categoria"
+                                    value = 'Selecione o Tipo de Serviço / Peças caso seja necessário!'
+                                    clearable
+                                ></v-select>
+                            </v-flex> 
                            <v-flex xs12 sm64 md4>
                                 <v-text-field  label="Quantidade" v-model="ositem.quant" :rules="ositem.quantRules"   name="quant" :value="ositem.quant"  @input="somentenumero('quant')"   clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>
@@ -147,7 +149,8 @@ export default {
               osnumero: 0,
               tipoitem: '',
               tipoitemRules: [ v => !!v || 'tipo Item é obrigatório!'],   
-              objeto: '',
+              categoria: '',
+              objeto: '0',
               objetoRules: [ v => !!v || 'Objeto / Descrição do item é obrigatório!'],   
               quant: '',
               quantRules: [ v => !!v || 'Quantidade é obrigatório!'],     
@@ -172,7 +175,8 @@ export default {
             nomeFormulario: 'Itens de OS',
             tipoproduto: [],
             msgconfirmar: 'Deseja excluir ese item',
-            tipoitemos: [ '1 - Peça',  '2 - Serviço'],       
+            tipoitemos: [ '1 - Peça',  '2 - Serviço'],  
+            categoria: []     
         }
     },
     methods: {
@@ -202,6 +206,24 @@ export default {
               alert(error);
             })
             this.fechaFomulario()
+        },
+        montacategoria(id){  
+            const  urloc = process.env.VUE_APP_HOST + "categoriacombo/search/" + id          
+            this.axios.get(urloc).then((response) => {
+                
+                let respostaurl = response.status
+                
+                if (respostaurl <= 201){// caso o response execute o post salvando os dados             
+                    this.categoria = response.data   
+                } else {// caso o response retrone algum erro ao tentar salvar os dados 
+                    this.menssagemform = 'Ocorreu algum erro nos dados deste Pedido, verifique com o adm do sistema!'            
+                    this.mostraMenssagem(); // fecha o formulario de dados detalhado
+                    this.overlay = false;
+                }
+                this.isLoading = false;  
+            }).catch((error) => {
+                this.erro = error.message;
+            });        
         },
         fechaFomulario(){
             this.dialog = false
@@ -271,6 +293,7 @@ export default {
             localStorage.os = os.id
             localStorage.osnumero = os.numero
             this.ositem.osnumero = localStorage.osnumero
+            this.ositem.os = localStorage.os
             this.dialog = true
             this.alert = true
             console.log(localStorage.visualiza)

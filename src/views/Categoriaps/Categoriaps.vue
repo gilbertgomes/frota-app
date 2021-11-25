@@ -75,8 +75,8 @@ import EventBus from '@/main.js'
 export default {
     components: {   
         Dashboard: () => import('@/components/Dashboard/Dashboard.vue'),   
-        Cadastrar: () => import('@/views/Fabricante/Fabricantecadastrar.vue'),
-        Alterar:   () => import('@/views/Fabricante/Fabricantealterar.vue'),
+        Cadastrar: () => import('@/views/Categoriaps/Categoriapscadastrar.vue'),
+        Alterar:   () => import('@/views/Categoriaps/Categoriapsalterar.vue'),
     },
     name: 'Fabricante',
     data() {
@@ -111,7 +111,7 @@ export default {
               total: 0,
               total1: 0
             }, 
-            ps: {
+            categoria: {
               id: 0,
               categoria: '',
               tipo: '',
@@ -124,9 +124,9 @@ export default {
     },
     methods: {
         carregaForm() {
-            this.ps.visualiza = true
-            EventBus.$emit('carregacadastro', this.ps)
-            this.initialize()
+            this.categoria.visualiza = true
+            EventBus.$emit('carregacadastro', this.categoria)
+            this.atualiza()
         },
         initialize() {
             const  key = 'frota2021house'
@@ -153,17 +153,38 @@ export default {
               alert(error);
             })
         },
+        atualiza() {
+            const  key = 'frota2021house'
+            const  urldadosps = process.env.VUE_APP_HOST + "categoriaps/search/" + key
+
+            this.axios.get(urldadosps)
+            .then(response => {           
+    
+              if (response == undefined) {
+                return false;
+              }  
+              if (response.status <= 201) {
+                 this.gerenciar = response.data   
+                return true;
+              } else {
+                return false;
+              }
+            })
+            .catch(error => {
+              alert(error);
+            })
+        },
         generatepagination(){            
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 
         },
         alteraritem(item) {
-            this.ps.id = item.id
-            this.ps.pecaserv = item.pecaserv
-            this.ps.tipo = item.tipops
-            this.ps.obs = item.obs
-            this.ps.visualiza = true
-            EventBus.$emit('carregaalteracao', this.fabricante)
-            this.initialize()
+            this.categoria.id = item.id
+            this.categoria.categoria = item.pecaserv
+            this.categoria.tipo = item.tipops
+            this.categoria.obs = item.obs
+            this.categoria.visualiza = true
+            EventBus.$emit('carregaalteracao', this.categoria)
+            this.atualiza()
         },
     },
     watch: {
