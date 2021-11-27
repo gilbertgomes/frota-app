@@ -39,6 +39,8 @@ export default {
             } else if (botao == '7') {                
                 this.$router.push("/financeiroapoio")              
             }  else if (botao == '8') {
+                this.$router.push("/estatistica")
+            }  else if (botao == '9') {
                 this.$router.push("/relatorioapoio")
             }
         },

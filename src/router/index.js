@@ -47,6 +47,12 @@ const routes = [
         import ( /* webpackChunkName: "Dashboard" */ '@/components/Navegacao/FinaceiroApoio.vue')
   },
   {
+    path: '/Estatistica',
+    name: 'estatistica',
+    component: () =>
+        import ( /* webpackChunkName: "Dashboard" */ '@/components/Navegacao/Estatistica.vue')
+  },
+  {
     path: '/relatorioapoio',
     name: 'Relatorioapoio',
     component: () =>
