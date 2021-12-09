@@ -14,9 +14,29 @@ export default {
           loader: null,    
         }
     },
+    methods: {
+      verificalogin(){
+        if(localStorage.user  === ''){
+          this.$router.push({ path: '/login' })          
+        } else {
+          this.$router.push({ path: '/dashboard' })
+        }     
+      },
+      verificatela(){
+        window.addEventListener("beforeunload", function (e) {
+          let confirmationMessage = "teste";
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage;                            //Webkit, Safari, Chrome
+        })
+      }
+      
+    },
+    mounted() {
+      this.verificatela()
+    },
     created() {
         document.title = this.$appName; 
-        this.$router.push({ path: '/login' })
+        this.verificalogin()        
     },
 };   
 </script>

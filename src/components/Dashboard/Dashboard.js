@@ -25,6 +25,7 @@ export default {
     methods: {
         acessabotao(botao) {
             if (botao == '1') {
+                localStorage.user = ''                
                 this.$router.push("/login");
             } else if (botao == '2') {
                 this.$router.push("/cadastroapoio")

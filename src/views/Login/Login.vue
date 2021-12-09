@@ -134,10 +134,15 @@ export default {
     },
     methods: {
         login() {
-          if(this.nome == 'ADM')
+          if(this.nome == 'ADM' && this.senha == '123')
           {
             this.$router.push("/dashboard");
+            localStorage.user = this.nome
+            localStorage.senha = this.senha 
           } else {
+            this.nome = ''
+            this.senha = ''
+            window.localStorage.clear(); 
             this.textalert = 'Erro de autenticação de usuario ou senha, verique!'
             this.alert = true
             location.reload() 
