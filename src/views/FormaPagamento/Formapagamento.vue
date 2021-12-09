@@ -142,6 +142,7 @@ export default {
               }  
               if (response.status <= 201) {
                  this.gerenciar = response.data   
+                 this.generatepagination()
                  this.overlay = false
                 return true;
               } else {
@@ -177,7 +178,6 @@ export default {
     },
     created() {
         this.initialize()
-        this.generatepagination()
-     }
+    }
 }
 </script>

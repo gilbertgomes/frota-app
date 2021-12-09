@@ -54,24 +54,27 @@ export default {
             itemssituacao: ['1 - ATIVO', '2 -INATIVO'],
             alterar: [],
             items: [
-                { bottom: '1', color: 'blue', text: 'Entrada', textitem: 'Produto', icon: 'mdi-align-vertical-top' },
-                { bottom: '2', color: 'blue', text: 'Saída', textitem: 'Produto', icon: 'mdi-align-vertical-bottom' },
-                { bottom: '3', color: 'blue', text: 'Saldo', textitem: '.', icon: 'mdi-chart-line' },
-                { bottom: '4', color: 'blue', text: 'Saldo', textitem: 'Historico',icon: 'mdi-chart-timeline' },  
+                { bottom: '1', color: 'blue', text: 'Fornecedor', textitem: '.', icon: 'mdi-truck-fast-outline' },
+                { bottom: '2', color: 'blue', text: 'Entrada', textitem: 'Produto', icon: 'mdi-align-vertical-top' },
+                { bottom: '3', color: 'blue', text: 'Saída', textitem: 'Produto', icon: 'mdi-align-vertical-bottom' },
+                { bottom: '4', color: 'blue', text: 'Saldo', textitem: '.', icon: 'mdi-chart-line' },
+                { bottom: '5', color: 'blue', text: 'Saldo', textitem: 'Historico',icon: 'mdi-chart-timeline' },  
             ],
         }
     },
     methods: {
          acessabotao(botao) {
             if (botao == '1') {
-                this.$router.push("/entrada");
+                this.$router.push("/fornecedor");
             } else if (botao == '2') {
-                this.$router.push("/saida")
+                this.$router.push("/entrada")
             } else if (botao == '3') {
-                this.$router.push("/saldo")
+                this.$router.push("/saida")
             } else if (botao == '4') {
+                this.$router.push("/saldo")
+            } else if (botao == '5') {
                 this.$router.push("/saldohistorico")
-            } 
+            }  
         },
         alterarItem() { //
             const urlupdateusuario = process.env.VUE_APP_HOST + "usuario/alter"

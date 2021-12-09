@@ -233,7 +233,7 @@ export default {
         if (this.value === 100) {
           return (this.value = 0)
             }
-            this.atualiza() 
+            //this.atualiza() 
             this.value += 10  
         }, 5000)  
     },

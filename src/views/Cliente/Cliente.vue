@@ -101,6 +101,7 @@ export default {
                 },
                 { text: 'Data', value: 'data', class: "cyan dark 1 white--text" },
                 { text: 'Cliente', value: 'cliente', class: "cyan dark 1 white--text" },
+                { text: 'CNPJ/CPF', value: 'cli_cpf_cnpj', class: "cyan dark 1 white--text" },
                 { text: 'Contato', value: 'contato', class: "cyan dark 1 white--text" },
                 { text: 'Email', value: 'email', class: "cyan dark 1 white--text" },
                 { text: 'Endereço', value: 'endereco', class: "cyan dark 1 white--text" },     
@@ -151,8 +152,32 @@ export default {
                 return false;
               }  
               if (response.status <= 201) {
-                 this.gerenciar = response.data   
+                 this.gerenciar = response.data  
+                 this.generatepagination() 
                  this.overlay = false
+                return true;
+              } else {
+                return false;
+              }
+            })
+            .catch(error => {
+              this.isLoading = false;
+              alert(error);
+            })
+        },
+        atualiza() {
+            const  key = 'frota2021house'
+            const  urldadoscliente = process.env.VUE_APP_HOST + "cliente/search/" + key
+
+            this.axios.get(urldadoscliente)
+            .then(response => {           
+    
+              if (response == undefined) {
+                return false;
+              }  
+              if (response.status <= 201) {
+                 this.gerenciar = response.data  
+                 this.generatepagination() 
                 return true;
               } else {
                 return false;
@@ -191,6 +216,14 @@ export default {
             localStorage.usu_atualiza = editedItem.usu_atualiza
             this.initialize()
         })
+
+        this.interval = setInterval(() => {
+        if (this.value === 100) {
+          return (this.value = 0)
+            }
+           // this.atualiza() 
+            this.value += 10  
+        }, 5000) 
     },
     beforeDestroy() { // gerencia o DESTROY do event do componenente
         this.$once("hook:beforeDestroy", () => {

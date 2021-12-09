@@ -145,7 +145,8 @@ export default {
                 return false;
               }  
               if (response.status <= 201) {
-                 this.gerenciar = response.data   
+                 this.gerenciar = response.data  
+                 this.generatepagination()  
                  this.overlay = false
                 return true;
               } else {
@@ -158,27 +159,33 @@ export default {
             })
         },
         atualiza() {
+            const  pode = localStorage.atualiza
             const  key = 'frota2021house' 
             const  urldadoscatalogoproduto = process.env.VUE_APP_HOST + "produto/view/" + key
 
-            this.axios.get(urldadoscatalogoproduto)
-            .then(response => {           
-    
-              if (response == undefined) {
+            if(pode == 'S'){
+         
+              this.axios.get(urldadoscatalogoproduto)
+              .then(response => {           
+      
+                if (response == undefined) {
 
-                return false;
-              }  
-              if (response.status <= 201) {
-                 this.gerenciar = response.data   
-                return true;
-              } else {
-                return false;
-              }
-            })
-            .catch(error => {
-              this.isLoading = false;
-              alert(error);
-            })
+                  return false;
+                }  
+                if (response.status <= 201) {
+                  this.gerenciar = response.data  
+                  this.generatepagination() 
+                  localStorage.atualiza = 'N'
+                  return true;
+                } else {
+                  return false;
+                }
+              })
+              .catch(error => {
+                this.isLoading = false;
+                alert(error);
+              })
+            }
         },
         generatepagination(){            
             this.pagination.total = Math.floor(this.gerenciar.length / 10) + 1 

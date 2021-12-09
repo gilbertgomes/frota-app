@@ -13,6 +13,9 @@
                             <v-flex xs12 sm612 md12>
                                 <v-text-field  label="Nome do Cliente" v-model="cliente.cliente" :rules="cliente.catalogoRules" name="cliente" :value="cliente.cliente"  @input="textToUpper('cliente')" clearable placeholder="Dense & Rounded" filled rounded dense></v-text-field>     
                             </v-flex>
+                            <v-flex xs12 sm6 md6>  
+                                <v-text-field   label="CNPJ / CPF"   v-model="cliente.cpfcnpj" :rules="cliente.cpfcnpjRules" name="cnpjcpf" :value="cliente.cnpjcpf"  @input="textToUpper('cnpjcpf')"   clearable placeholder="Dense & Rounded" filled  rounded dense></v-text-field>                                    
+                            </v-flex> 
                             <v-flex xs12 sm6 md6>
                                 <v-text-field  label="Tel / Cel" v-model="cliente.contato" maxlength="11" :rules="cliente.kmRules" name="contato" :value="cliente.contato"  @input="textToUpper('contato')" clearable placeholder="Dense & Rounded" filled rounded dense >                          
                                 </v-text-field>    
@@ -103,6 +106,8 @@ export default {
               id: 0,
               cliente: '',
               clienteRules: [ v => !!v || 'Nome do Cliente é obrigatório!'], 
+              cpfcnpj: '',
+              cpfcnpjRules: [ v => !!v || 'cnpj / cpf do Cliente é obrigatório!'], 
               contato: '',
               contatoRules: [ v => !!v || 'Contato é obrigatório!'], 
               email: '',

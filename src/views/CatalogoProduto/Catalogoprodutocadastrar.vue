@@ -128,6 +128,7 @@ export default {
                  console.log(response.data )
                  this.isLoading = false
                  this.msgsucesso()
+                 localStorage.atualiza = "S"
                  this.novo()
                 return true;
               } else {

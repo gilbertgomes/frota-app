@@ -137,6 +137,7 @@ export default {
               }  
               if (response.status <= 201) {
                  this.gerenciar = response.data   
+                 this.generatepagination()
                  this.overlay = false
                 return true;
               } else {
@@ -171,8 +172,7 @@ export default {
     beforeDestroy() { // gerencia o DESTROY do event do componenente
     },
     created() {
-        this.initialize()
-        this.generatepagination()
+        this.initialize()       
      }
 }
 </script>

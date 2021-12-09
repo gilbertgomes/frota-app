@@ -57,9 +57,12 @@ export default {
                 { bottom: '1', color: '#ca5d90', text: 'Aprovador', textitem: 'Autorização', icon: 'mdi-air-filter' }, 
                 { bottom: '2', color: '#ca5d90', text: 'Tipo', textitem: 'OS', icon: 'mdi-file-swap-outline' }, 
                 { bottom: '3', color: '#ca5d90', text: 'Categoria', textitem: 'Peça / Serviço', icon: 'mdi-pipe-wrench' },               
-                { bottom: '4', color: '#ca5d90', text: 'Solicitante', textitem: '.', icon: 'mdi-gesture-tap-button' },           
-                { bottom: '5', color: '#ca5d90', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-format-page-break' },   
-                { bottom: '6', color: '#ca5d90', text: 'Ordem', textitem: 'Compra', icon: 'mdi-calculator' },       
+                { bottom: '4', color: '#ca5d90', text: 'Solicitante', textitem: '.', icon: 'mdi-gesture-tap-button' },  
+                { bottom: '5', color: '#ca5d90', text: 'Tipo', textitem: 'Manutenção', icon: 'mdi-wrench-outline' },  
+                { bottom: '6', color: '#ca5d90', text: 'Fornecedor', textitem: '.', icon: 'mdi-truck-fast-outline' },
+                { bottom: '7', color: '#ca5d90', text: 'Local', textitem: 'Manutenção', icon: 'mdi-hammer-screwdriver' },        
+                { bottom: '8', color: '#ca5d90', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-format-page-break' },   
+                { bottom: '9', color: '#ca5d90', text: 'Ordem', textitem: 'Compra', icon: 'mdi-calculator' },       
             ],
         }
     },
@@ -72,10 +75,16 @@ export default {
             } else if (botao == '3') {
                 this.$router.push("/categoriaps")
             } else if (botao == '4') {
-                this.$router.push("/categoriaps")
+                this.$router.push("/solicitante")
             } else if (botao == '5') {
-                this.$router.push("/osserv")
+                this.$router.push("/tipomanutencao")
             } else if (botao == '6') {
+                this.$router.push("/fornecedor")
+            } else if (botao == '7') {
+                this.$router.push("/local")
+            } else if (botao == '8') {
+                this.$router.push("/osserv")
+            } else if (botao == '9') {
                 this.$router.push("/oc")
             }
         },

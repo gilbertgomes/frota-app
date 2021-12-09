@@ -55,7 +55,7 @@ export default {
             alterar: [],
             items: [
                 { bottom: '1', color: 'purple', text: 'Catalogo', textitem: 'Produto', icon: 'mdi-clipboard-edit-outline' },
-                { bottom: '2', color: 'pink', text: 'Catalogo', textitem: 'Preventivo', icon: 'mdi-tools' },
+                //{ bottom: '2', color: 'pink', text: 'Catalogo', textitem: 'Preventivo', icon: 'mdi-tools' },
                 { bottom: '3', color: 'blue', text: 'Cliente', textitem: '.', icon: 'mdi-account-details' },
                 { bottom: '4', color: 'green', text: 'Fabricante', textitem: '.',icon: 'mdi-factory' },
                 { bottom: '5', color: '#607d8b', text: 'Forma', textitem: 'Pagamento',icon: 'mdi-cash-check' },

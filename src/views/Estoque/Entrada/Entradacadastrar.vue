@@ -118,7 +118,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
-        <v-dialog  v-model="dialog2" height="500" max-width="700px" persistent :retain-focus="false">
+        <v-dialog  v-model="dialog2" height="600" max-width="700px" persistent :retain-focus="false">
             <v-card>
                 <v-card-text> 
                     <div class="text-center">  
@@ -153,6 +153,13 @@
                         </template>
                     </v-data-table>   
                 </v-card-text>
+                <div class="text-center">
+                    <v-spacer></v-spacer>
+                    <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fecharform()" >
+                        <v-icon dark><mdi-check-lie></mdi-check-lie></v-icon>
+                        Fechar
+                    </v-btn>    
+                </div>
             </v-card>
         </v-dialog> 
     </div>
@@ -214,6 +221,7 @@ export default {
         insert() {
             const  key = 'frota2021house'
             this.entrada.valortot =  this.entrada.valortot.replace('.', '');
+            this.entrada.ocano = '2021'
             const  urlinsertentrada = process.env.VUE_APP_HOST  + "entrada/add/" + key
             
             this.axios.post(urlinsertentrada, this.entrada)
@@ -319,6 +327,10 @@ export default {
             this.entrada.oc = ''
             this.entrada.octipo = ''
             this.entrada.ocano = ''
+        },
+        fecharform(){
+            this.dialog2 = false
+            this.alert2  = false
         }
     },
     watch: {

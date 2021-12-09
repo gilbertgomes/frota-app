@@ -169,7 +169,8 @@ export default {
                 return false;
               }  
               if (response.status <= 201) {
-                 this.gerenciar = response.data                   
+                 this.gerenciar = response.data       
+                 this.generatepagination()               
                   this.overlay = false 
                 return true;
               } else {
@@ -192,7 +193,8 @@ export default {
                 return false;
               }  
               if (response.status <= 201) {
-                 this.gerenciar = response.data                   
+                 this.gerenciar = response.data 
+                 this.generatepagination()                  
                 return true;
               } else {
                 return false;
@@ -236,7 +238,7 @@ export default {
         if (this.value === 100) {
           return (this.value = 0)
             }
-            this.atualiza() 
+            //this.atualiza() 
             this.value += 10  
         }, 5000)   
     },

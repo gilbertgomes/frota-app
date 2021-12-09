@@ -113,7 +113,7 @@ export default {
               tipomanutencao: '',
               visualiza: false
             },
-            nomeformulario: 'Fabricante',
+            nomeformulario: 'Tipo Manutenção',
             overlay: false, 
         }
     },

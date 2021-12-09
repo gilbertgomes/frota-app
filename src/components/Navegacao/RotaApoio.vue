@@ -54,20 +54,26 @@ export default {
             itemssituacao: ['1 - ATIVO', '2 -INATIVO'],
             alterar: [],
             items: [
-                { bottom: '1', color: '#b71c1c', text: 'Rota', textitem: 'Transporte', icon: 'mdi-vector-polyline-plus' }, 
-                { bottom: '2', color: '#b71c1c', text: 'ponto', textitem: 'Rota', icon: 'mdi-highway' },               
-                { bottom: '3', color: '#b71c1c', text: 'Escala', textitem: '.', icon: 'mdi-transit-transfer' },    
+                { bottom: '1', color: '#b71c1c', text: 'Motorista', textitem: 'Transporte', icon: 'mdi-card-account-mail-outline' }, 
+                { bottom: '2', color: '#b71c1c', text: 'Cliente', textitem: 'Transporte', icon: 'mdi-account-details' }, 
+                { bottom: '3', color: '#b71c1c', text: 'Rota', textitem: 'Transporte', icon: 'mdi-vector-polyline-plus' }, 
+                { bottom: '4', color: '#b71c1c', text: 'ponto', textitem: 'Rota', icon: 'mdi-highway' },               
+                { bottom: '5', color: '#b71c1c', text: 'Escala', textitem: '.', icon: 'mdi-transit-transfer' },    
             ],
         }
     },
     methods: {
          acessabotao(botao) {
             if (botao == '1') {
-                this.$router.push("/rota");
+                this.$router.push("/motorista");
             } else if (botao == '2') {
-                this.$router.push("/funeraria")
+                this.$router.push("/cliente")
             } else if (botao == '3') {
-                this.$router.push("/funerariaFuncionario")
+                this.$router.push("/rota")
+            } else if (botao == '4') {
+                this.$router.push("/funerariaveiculo")
+            } else if (botao == '4') {
+                this.$router.push("/funerariaveiculo")
             } else if (botao == '4') {
                 this.$router.push("/funerariaveiculo")
             } 
