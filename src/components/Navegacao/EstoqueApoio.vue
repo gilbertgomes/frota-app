@@ -54,27 +54,35 @@ export default {
             itemssituacao: ['1 - ATIVO', '2 -INATIVO'],
             alterar: [],
             items: [
-                { bottom: '1', color: 'blue', text: 'Fornecedor', textitem: '.', icon: 'mdi-truck-fast-outline' },
-                { bottom: '2', color: 'blue', text: 'Entrada', textitem: 'Produto', icon: 'mdi-align-vertical-top' },
-                { bottom: '3', color: 'blue', text: 'Saída', textitem: 'Produto', icon: 'mdi-align-vertical-bottom' },
-                { bottom: '4', color: 'blue', text: 'Saldo', textitem: '.', icon: 'mdi-chart-line' },
-                { bottom: '5', color: 'blue', text: 'Saldo', textitem: 'Historico',icon: 'mdi-chart-timeline' },  
+                { bottom: '1', color: 'blue', text: 'Catalogo', textitem: 'Produto', icon: 'mdi-clipboard-edit-outline' },
+                { bottom: '2', color: 'blue', text: 'Tipo', textitem: 'Unidade', icon: 'mdi-collapse-all-outline' },
+                { bottom: '3', color: 'blue', text: 'Tipo', textitem: 'Referência', icon: 'mdi-cog-refresh-outline' },
+                { bottom: '4', color: 'blue', text: 'Fornecedor', textitem: '.', icon: 'mdi-truck-fast-outline' },
+                { bottom: '5', color: '#c41c00', text: 'Entrada', textitem: 'Produto', icon: 'mdi-align-vertical-top' },
+                { bottom: '6', color: '#b8cc00', text: 'Saída', textitem: 'Produto', icon: 'mdi-align-vertical-bottom' },
+                { bottom: '7', color: 'blue', text: 'Saldo', textitem: '.', icon: 'mdi-chart-line' }, 
             ],
         }
     },
     methods: {
          acessabotao(botao) {
             if (botao == '1') {
-                this.$router.push("/fornecedor");
+                this.$router.push("/catalogoproduto");
             } else if (botao == '2') {
-                this.$router.push("/entrada")
+                this.$router.push("/unidade")
             } else if (botao == '3') {
-                this.$router.push("/saida")
+                this.$router.push("/referencia")
             } else if (botao == '4') {
-                this.$router.push("/saldo")
+                this.$router.push("/fornecedor")
             } else if (botao == '5') {
-                this.$router.push("/saldohistorico")
-            }  
+                this.$router.push("/entrada")
+            } else if (botao == '6') {
+                this.$router.push("/saida")
+            } else if (botao == '7') {
+                this.$router.push("/saldo")
+            } else if (botao == '8') {
+                this.$router.push("/saldo")
+            }    
         },
         alterarItem() { //
             const urlupdateusuario = process.env.VUE_APP_HOST + "usuario/alter"

@@ -61,8 +61,8 @@ export default {
                 { bottom: '5', color: '#ca5d90', text: 'Tipo', textitem: 'Manutenção', icon: 'mdi-wrench-outline' },  
                 { bottom: '6', color: '#ca5d90', text: 'Fornecedor', textitem: '.', icon: 'mdi-truck-fast-outline' },
                 { bottom: '7', color: '#ca5d90', text: 'Local', textitem: 'Manutenção', icon: 'mdi-hammer-screwdriver' },        
-                { bottom: '8', color: '#ca5d90', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-format-page-break' },   
-                { bottom: '9', color: '#ca5d90', text: 'Ordem', textitem: 'Compra', icon: 'mdi-calculator' },       
+                { bottom: '8', color: '#4a0072', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-format-page-break' },   
+                { bottom: '9', color: '#00600f', text: 'Ordem', textitem: 'Compra', icon: 'mdi-calculator' },       
             ],
         }
     },

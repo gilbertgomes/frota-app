@@ -54,16 +54,17 @@ export default {
             itemssituacao: ['1 - ATIVO', '2 -INATIVO'],
             alterar: [],
             items: [
-                { bottom: '1', color: 'green', text: 'Veiculo', textitem: '.', icon: 'mdi-car-estate' },
-                { bottom: '2', color: 'green', text: 'Fabricante', textitem: '.', icon: 'mdi-factory' },
-                { bottom: '3', color: 'green', text: 'Acessório', textitem: 'Veículo', icon: 'mdi-bus-alert' },
-                { bottom: '4', color: 'green', text: 'Categoria', textitem: 'Peça / Serviço', icon: 'mdi-pipe-wrench' },     
-                { bottom: '5', color: 'green', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-clipboard-flow-outline' },
-                { bottom: '6', color: 'green', text: 'Manuteção', textitem: 'Veiculo', icon: 'mdi-wrench-outline' },
-                { bottom: '7', color: 'green', text: 'Tipo', textitem: 'Motorista', icon: 'mdi-camera-front-variant' }, 
-                { bottom: '7', color: 'green', text: 'Motorista', textitem: '', icon: 'mdi-card-account-mail-outline' }, 
-                { bottom: '8', color: 'green', text: 'Motorista', textitem: 'Historico', icon: 'mdi-account-details-outline' },
-                { bottom: '9', color: 'green', text: 'Abastecimento', textitem: 'Veiculo', icon: 'mdi-truck-check-outline' },  
+                { bottom: '1', color: '#b0003a', text: 'Veiculo', textitem: '.', icon: 'mdi-car-estate' },
+                { bottom: '2', color: 'green', text: 'Tipo', textitem: 'Veiculo', icon: 'mdi-car-lifted-pickup' },
+                { bottom: '3', color: 'green', text: 'Fabricante', textitem: '.', icon: 'mdi-factory' },
+                { bottom: '4', color: 'green', text: 'Acessório', textitem: 'Veículo', icon: 'mdi-bus-alert' },
+                { bottom: '5', color: 'green', text: 'Categoria', textitem: 'Peça / Serviço', icon: 'mdi-pipe-wrench' },     
+                { bottom: '6', color: '#5c007a', text: 'Ordem', textitem: 'Serviço', icon: 'mdi-clipboard-flow-outline' },
+                { bottom: '7', color: 'green', text: 'Manuteção', textitem: 'Veiculo', icon: 'mdi-wrench-outline' },
+                { bottom: '8', color: 'green', text: 'Tipo', textitem: 'Motorista', icon: 'mdi-camera-front-variant' }, 
+                { bottom: '9', color: '#0081cb', text: 'Motorista', textitem: '', icon: 'mdi-card-account-mail-outline' }, 
+                { bottom: '10', color: 'green', text: 'Motorista', textitem: 'Historico', icon: 'mdi-account-details-outline' },
+                { bottom: '11', color: 'green', text: 'Abastecimento', textitem: 'Veiculo', icon: 'mdi-truck-check-outline' },  
                //{ bottom: '10', color: 'green', text: 'Tacografo', textitem: 'Veiculo', icon: 'mdi-bus-articulated-front' },  
                
             ],
@@ -74,24 +75,26 @@ export default {
             if (botao == '1') {
                 this.$router.push("/veiculo");
             } else if (botao == '2') {
-                this.$router.push("/fabricante")
+                this.$router.push("/tipoveiculo")
             } else if (botao == '3') {                
-                this.$router.push("/acessorio")
+                this.$router.push("/fabricante")
             } else if (botao == '4') {
-                this.$router.push("/categoriaps")
+                this.$router.push("/acessorio")
             } else if (botao == '5') {
-                this.$router.push("/osserv")
+                this.$router.push("/categoriaps")
             } else if (botao == '6') {
-                this.$router.push("/manutencao")
+                this.$router.push("/osserv")
             } else if (botao == '7') {
-                this.$router.push("/tipomotorista")
+                this.$router.push("/manutencao")
             } else if (botao == '8') {
-                this.$router.push("/motorista")
+                this.$router.push("/tipomotorista")
             } else if (botao == '9') {
-                this.$router.push("/motoristahistorico")
+                this.$router.push("/motorista")
             } else if (botao == '10') {
-                this.$router.push("/abastecimento")
+                this.$router.push("/motoristahistorico")
             } else if (botao == '11') {
+                this.$router.push("/abastecimento")
+            } else if (botao == '12') {
                 this.$router.push("/categoriaps")
             }
         },

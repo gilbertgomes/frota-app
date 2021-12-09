@@ -119,7 +119,7 @@
             </v-card>
         </v-dialog>
         <v-dialog  v-model="dialog2" height="600" max-width="700px" persistent :retain-focus="false">
-            <v-card>
+            <v-card height="300" depressed>
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert2" type="cyan">

@@ -93,7 +93,7 @@
         </v-card>
         </v-dialog>
         <v-dialog  v-model="dialog3" height="500" max-width="700px" persistent :retain-focus="false">
-            <v-card>
+            <v-card height="600" depressed>
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert3" type="cyan">
@@ -144,10 +144,17 @@
                         </template>
                     </v-data-table>   
                 </v-card-text>
+                <div class="text-center">
+                    <v-spacer></v-spacer>
+                    <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fechaproduto()" >
+                        <v-icon dark><mdi-check-lie></mdi-check-lie></v-icon>
+                        Fechar
+                    </v-btn>    
+                </div>
             </v-card>
         </v-dialog>
         <v-dialog  v-model="dialog4" height="500" max-width="700px" persistent :retain-focus="false">
-            <v-card>
+            <v-card height="600" depressed>
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert4" type="cyan">
@@ -198,6 +205,13 @@
                         </template>
                     </v-data-table>  
                  </v-card-text>
+                 <div class="text-center">
+                    <v-spacer></v-spacer>
+                    <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fechaunidade()" >
+                        <v-icon dark><mdi-check-lie></mdi-check-lie></v-icon>
+                        Fechar
+                    </v-btn>    
+                 </div>
             </v-card>
         </v-dialog>
         <v-dialog  v-model="dialog5" height="500" max-width="700px" persistent :retain-focus="false">
@@ -252,10 +266,17 @@
                         </template>
                     </v-data-table>   
                 </v-card-text>
+                <div class="text-center">
+                    <v-spacer></v-spacer>
+                    <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fechareferencia()" >
+                        <v-icon dark><mdi-check-lie></mdi-check-lie></v-icon>
+                        Fechar
+                    </v-btn>    
+                </div>
             </v-card>
         </v-dialog>
         <v-dialog  v-model="dialog6" max-width="500px" persistent :retain-focus="false">
-            <v-card>
+            <v-card height="600" depressed>
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert6" type="success">
@@ -264,7 +285,7 @@
                     </div>
                     <div class="text-center">
                         <v-spacer></v-spacer>
-                        <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fechaFomulariomsg()" >
+                        <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fecharform()" >
                             <v-icon dark><mdi-check-lie></mdi-check-lie></v-icon>
                             Fechar
                         </v-btn>    
@@ -542,6 +563,22 @@ export default {
             this.saidaitem.referencia = ''
             this.saidaitem.descreferencia = ''
         },   
+        fecharform(){
+            this.dialog6 = false
+            this.alert6 = false
+        },
+        fechaproduto(){
+            this.dialog3 = false
+            this.alert3 = false
+        },
+        fechaunidade(){
+            this.dialog4 = false
+            this.alert4 = false
+        },
+        fechareferencia(){
+            this.dialog5 = false
+            this.alert5 = false
+        }
     },
     mounted(){ // gerencia o receber de dados de outro componente
         EventBus.$on('carregaitem', (saida) => {

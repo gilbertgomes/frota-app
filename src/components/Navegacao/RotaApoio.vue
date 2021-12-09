@@ -56,7 +56,7 @@ export default {
             items: [
                 { bottom: '1', color: '#b71c1c', text: 'Motorista', textitem: 'Transporte', icon: 'mdi-card-account-mail-outline' }, 
                 { bottom: '2', color: '#b71c1c', text: 'Cliente', textitem: 'Transporte', icon: 'mdi-account-details' }, 
-                { bottom: '3', color: '#b71c1c', text: 'Rota', textitem: 'Transporte', icon: 'mdi-vector-polyline-plus' }, 
+                { bottom: '3', color: '#79b700', text: 'Rota', textitem: 'Transporte', icon: 'mdi-vector-polyline-plus' }, 
                 { bottom: '4', color: '#b71c1c', text: 'ponto', textitem: 'Rota', icon: 'mdi-highway' },               
                 { bottom: '5', color: '#b71c1c', text: 'Escala', textitem: '.', icon: 'mdi-transit-transfer' },    
             ],

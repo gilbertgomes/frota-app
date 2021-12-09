@@ -103,7 +103,7 @@ export default {
               valortotRules: [ v => !!v || 'Valor NF é obrigatório!'], 
               destino: '',
               destinoRules: [ v => !!v || 'Destino é obrigatório!'], 
-              situacao: 1,              
+              situacao: '1',              
               obs: '',
               obseRules: [ v => !!v || 'Obs é obrigatório!'], 
               visualiza: false,
@@ -118,6 +118,7 @@ export default {
         insert() {
             const  key = 'frota2021house'
             this.saida.valor =  this.saida.valor.replace('.', '');
+            this.saida.situacao = 2
             const  urlinsertsaida = process.env.VUE_APP_HOST  + "saida/add/" + key
             
             this.axios.post(urlinsertsaida, this.saida)

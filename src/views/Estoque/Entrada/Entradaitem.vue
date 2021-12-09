@@ -106,7 +106,7 @@
         </v-card>
         </v-dialog>
         <v-dialog  v-model="dialog3" height="500" max-width="700px" persistent :retain-focus="false">
-            <v-card>
+            <v-card height="600" depressed>
                 <v-card-text> 
                     <div class="text-center">  
                         <v-alert v-model="alert3" type="cyan">
@@ -155,7 +155,14 @@
                                 </span>
                             </v-tooltip>
                         </template>
-                    </v-data-table>   
+                    </v-data-table>
+                    <div class="text-center">
+                        <v-spacer></v-spacer>
+                        <v-btn width="160" rounded  color="cyan"  class="smf-gradient" dark @click="fecharform()" >
+                            <v-icon dark><mdi-check-lie></mdi-check-lie></v-icon>
+                            Fechar
+                        </v-btn>    
+                    </div>   
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -575,6 +582,10 @@ export default {
             this.entradaitem.descunidade = ''
             this.entradaitem.referencia = ''
             this.entradaitem.descreferencia = ''
+        },
+        fecharform(){
+            this.dialog3 = false
+            this.alert3 = false
         }
     },
     mounted(){ // gerencia o receber de dados de outro componente
