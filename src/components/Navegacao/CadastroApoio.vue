@@ -56,8 +56,9 @@ export default {
             items: [
                 { bottom: '1', color: 'purple', text: 'Catalogo', textitem: 'Produto', icon: 'mdi-clipboard-edit-outline' },
                 //{ bottom: '2', color: 'pink', text: 'Catalogo', textitem: 'Preventivo', icon: 'mdi-tools' },
+                { bottom: '2', color: 'green', text: 'Categoria', textitem: 'Peça / Serviço', icon: 'mdi-pipe-wrench' },     
                 { bottom: '3', color: 'blue', text: 'Cliente', textitem: '.', icon: 'mdi-account-details' },
-                { bottom: '4', color: 'green', text: 'Fabricante', textitem: '.',icon: 'mdi-factory' },
+                //{ bottom: '4', color: 'green', text: 'Fabricante', textitem: '.',icon: 'mdi-factory' },
                 { bottom: '5', color: '#607d8b', text: 'Forma', textitem: 'Pagamento',icon: 'mdi-cash-check' },
                 { bottom: '6', color: 'cyan', text: 'Fornecedor',  textitem: '.',  icon: 'mdi-truck-fast-outline' }, 
                 { bottom: '7', color: 'lime', text: 'Local',  textitem: 'Manutençao',  icon: 'mdi-hammer-screwdriver' },   
@@ -81,7 +82,8 @@ export default {
             if (botao == '1') {
                 this.$router.push("/catalogoproduto");
             } else if (botao == '2') {
-                this.$router.push("/catalogopreventivo")
+                //this.$router.push("/catalogopreventivo")
+                this.$router.push("/categoriaps")
             } else if (botao == '3') {
                 this.$router.push("/cliente")
             } else if (botao == '4') {

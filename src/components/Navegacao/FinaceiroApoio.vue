@@ -54,8 +54,8 @@ export default {
             itemssituacao: ['1 - ATIVO', '2 -INATIVO'],
             alterar: [],
             items: [
-                { bottom: '1', color: '#6a0080', text: 'Tipo', textitem: 'Financeiro', icon: 'mdi-book-open-page-variant' }, 
-                { bottom: '2', color: '#6a0080', text: 'Tipo', textitem: 'Receita/Despesa', icon: 'mdi-chart-bar' },   
+                //{ bottom: '1', color: '#6a0080', text: 'Tipo', textitem: 'Financeiro', icon: 'mdi-book-open-page-variant' }, 
+                //{ bottom: '2', color: '#6a0080', text: 'Tipo', textitem: 'Receita/Despesa', icon: 'mdi-chart-bar' },   
                 { bottom: '3', color: '#1faa00', text: 'Financeiro', textitem: '.', icon: 'mdi-cash-check' }, 
                 { bottom: '4', color: '#ffd600', text: 'Contrato', textitem: '.', icon: 'mdi-clipboard-edit-outline' },               
             ],
